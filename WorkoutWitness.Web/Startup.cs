@@ -11,6 +11,10 @@ using Microsoft.Extensions.Logging;
 using WorkoutWitness.Web.Models;
 using WorkoutWitness.Web.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.DotNet.PlatformAbstractions;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace WorkoutWitness.Web
 {
