@@ -32,7 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WorkoutWitness.Accessors\WorkoutWitness.Accessors.csproj" />
     <ProjectReference Include="..\WorkoutWitness.Core\WorkoutWitness.Core.csproj" />
-    <ProjectReference Include="..\WorkoutWitness.Engines\WorkoutWitness.Engines.csproj" />
   </ItemGroup>
 
 </Project>

@@ -39,8 +39,7 @@ namespace WorkoutWitness.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMongo(Configuration["ConnectionStrings:DefaultConnection"], "WorkoutWitness");
-            services.AddIdentityWithMongoStores(Configuration["ConnectionStrings:DefaultConnection"])
-                .AddDefaultTokenProviders();
+            services.AddMongoIdentity(Configuration["ConnectionStrings:DefaultConnection"], "WorkoutWitness");
             services.AddMvc();
             
         }
