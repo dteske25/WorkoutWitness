@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using WorkoutWitness.Core.Interfaces;
 using WorkoutWitness.Core.Models;
+using WorkoutWitness.Accessors.Infrastructure;
 
-namespace WorkoutWitness.Accessors.Infrastructure
+namespace WorkoutWitness.Accessors
 {
     public class ApplicationRoleAccessor : MongoAccessor<ApplicationRole>, IApplicationRoleAccessor
     {

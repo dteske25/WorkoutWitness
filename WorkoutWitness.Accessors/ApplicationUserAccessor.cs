@@ -52,7 +52,7 @@ namespace WorkoutWitness.Accessors
 
         public async Task<ApplicationUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            var user = await Single(a => a.Id == userId);
+            var user = await Single(a => a.NormalizedUsername == userId);
             return user;
         }
 
@@ -63,7 +63,7 @@ namespace WorkoutWitness.Accessors
 
         public async Task<ApplicationUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            var user = await Single(a => a.NormalizedUsername == normalizedUserName);
+            var user = await Single(a => a.Username == normalizedUserName);
             return user;
         }
 
@@ -99,7 +99,7 @@ namespace WorkoutWitness.Accessors
 
         public async Task<string> GetUserIdAsync(ApplicationUser user, CancellationToken cancellationToken)
         {
-            return user.Id;
+            return user.NormalizedUsername;
         }
 
         public async Task<string> GetUserNameAsync(ApplicationUser user, CancellationToken cancellationToken)
