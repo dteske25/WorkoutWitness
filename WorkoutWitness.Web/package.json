@@ -1,0 +1,21 @@
+{
+  "name": "workoutwitness_ui",
+  "version": "1.0.0",
+  "description": "The UI for the WorkoutWitness Webapp",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-sourcemaps": "^2.4.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "author": "dteske",
+  "license": "ISC"
+}

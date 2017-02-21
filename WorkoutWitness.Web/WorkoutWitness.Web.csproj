@@ -34,5 +34,8 @@
     <ProjectReference Include="..\WorkoutWitness.Accessors\WorkoutWitness.Accessors.csproj" />
     <ProjectReference Include="..\WorkoutWitness.Core\WorkoutWitness.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WorkoutWitness_UI\" />
+  </ItemGroup>
 
 </Project>
