@@ -64,7 +64,7 @@ namespace WorkoutWitness.Accessors.Infrastructure
         public async Task<T> Single(Expression<Func<T, bool>> where)
         {
             var result = await _collection.FindAsync(where);
-            return result.SingleOrDefault();
+            return result.FirstOrDefault();
         }
 
         public async Task Update(Expression<Func<T, bool>> where, T entity)

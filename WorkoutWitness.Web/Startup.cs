@@ -76,8 +76,13 @@ namespace WorkoutWitness.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name: "api",
+                    template: "api/{controller}/{action}");
+
+                routes.MapRoute(
+                    name: "index",
+                    template: "{*route}",
+                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }
