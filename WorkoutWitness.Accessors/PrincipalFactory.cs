@@ -15,7 +15,6 @@ namespace WorkoutWitness.Accessors
             ClaimsIdentity identity = new ClaimsIdentity("Microsoft.AspNet.Identity.Application");
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.NormalizedUsername));
             identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
-            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
 
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
             return principal;

@@ -14,7 +14,7 @@ const store = configureStore();
 class Container extends Component {
   render(){
     return (
-      <div>
+      <div className={'page-wrapper'}>
         <Navbar/>
         {this.props.children}
       </div>

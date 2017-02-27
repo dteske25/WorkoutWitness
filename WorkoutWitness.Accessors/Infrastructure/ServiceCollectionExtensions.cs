@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using WorkoutWitness.Accessors;
 using WorkoutWitness.Accessors.Infrastructure;
+using WorkoutWitness.Core.Interfaces;
 using WorkoutWitness.Core.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -14,6 +15,10 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             var context = new MongoContext(connectionString, databaseName);
             services.AddScoped(p => context);
+
+            services.AddTransient<IApplicationUserAccessor, ApplicationUserAccessor>();
+            services.AddTransient<IWorkoutAccessor, WorkoutAccessor>();
+            services.AddTransient<IExerciseAccessor, ExerciseAccessor>();
 
             return services;
         }

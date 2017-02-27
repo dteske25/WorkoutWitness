@@ -18,6 +18,8 @@
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
+    <div id="fakeAppBar"></div>
+    <img id="loading" src="~/images/loading.gif" />
     @RenderBody()
 
     <environment names="Development">
@@ -33,7 +35,6 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

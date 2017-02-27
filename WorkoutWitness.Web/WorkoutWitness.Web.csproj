@@ -11,6 +11,11 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-WorkoutWitness.Web-2de7dbad-39d4-4828-9ac2-f36216c2b5dd</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot/images\Curls.psd" />
+    <Content Remove="wwwroot/images\dumbell.psd" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.0" />

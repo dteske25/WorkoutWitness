@@ -27,19 +27,8 @@ namespace WorkoutWitness.Core.Models
         [BsonElement(Fields.NormalizedUsername)]
         public string NormalizedUsername { get; set; }
 
-        [BsonElement(Fields.Email)]
-        public string Email { get; set; }
-
-        [BsonElement(Fields.PhoneNumber)]
-        public string PhoneNumber { get; set; }
-
-        [BsonElement(Fields.PhoneNumberConfirmed)]
-        public bool PhoneNumberConfirmed { get; set; }
-
         [BsonElement(Fields.PasswordHash)]
         public string PasswordHash { get; set; }
-
-        [BsonElement(Fields.TwoFactorEnabled)]
-        public bool TwoFactorEnabled { get; set; }
+        
     }
 }

@@ -6,6 +6,7 @@ namespace WorkoutWitness.Core.Models
 {
     public enum ExerciseTypes
     {
+        Custom,
         Weightlifting,
         Running,
         Swimming,
