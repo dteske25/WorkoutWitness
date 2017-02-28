@@ -10,7 +10,6 @@ namespace WorkoutWitness.Core.Dtos
         public string Id { get; set; }
         public string Name { get; set; }
         public string UserId { get; set; }
-        public bool IsTemplate { get; set; }
         public ExerciseTypes ExerciseType { get; set; }
         public List<ExerciseSetDto> Sets { get; set; }
         public string WorkoutId { get; set; }

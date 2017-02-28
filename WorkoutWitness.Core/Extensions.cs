@@ -16,7 +16,6 @@ namespace WorkoutWitness.Core
             {
                 Id = e.Id,
                 ExerciseType = e.ExerciseType,
-                IsTemplate = e.IsTemplate,
                 Name = e.Name,
                 Sets = e.Sets.Select(es => es.ToDto()).ToList() ?? new List<ExerciseSetDto>(),
                 UserId = e.UserId,
@@ -30,7 +29,6 @@ namespace WorkoutWitness.Core
             {
                 Id = e.Id ?? ObjectId.GenerateNewId().ToString(),
                 ExerciseType = e.ExerciseType,
-                IsTemplate = e.IsTemplate,
                 Name = e.Name,
                 Sets = e.Sets.Select(es => es.ToMongo()).ToList() ?? new List<ExerciseSet>(),
                 UserId = e.UserId,

@@ -5,7 +5,7 @@ import { Button } from 'react-toolbox/lib/button';
 export default class Workout extends Component{
     render() {
         return (
-            <Card style={{width: '350px', margin: '15px'}}>
+            <Card style={{width: '350px', margin: '15px'}} raised>
                 <CardTitle
                     title="Arm Day"
                     subtitle="2/28/2017"

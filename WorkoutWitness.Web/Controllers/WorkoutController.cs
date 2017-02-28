@@ -16,11 +16,9 @@ namespace WorkoutWitness.Web.Controllers
     public class WorkoutController : Controller
     {
         private readonly IWorkoutAccessor _workoutAccessor;
-        private readonly IExerciseAccessor _exerciseAccessor;
-        public WorkoutController(IWorkoutAccessor workoutAccessor, IExerciseAccessor exerciseAccessor)
+        public WorkoutController(IWorkoutAccessor workoutAccessor)
         {
             _workoutAccessor = workoutAccessor;
-            _exerciseAccessor = exerciseAccessor;
         }
 
         [HttpPost("create")]
@@ -33,28 +31,6 @@ namespace WorkoutWitness.Web.Controllers
             });
         }
 
-        [HttpPost("create/exercise")]
-        public async Task<JsonResult> CreateExercise([FromBody]CreateExerciseParams exerciseParams)
-        {
-            var result = await _exerciseAccessor.CreateExercise(new ExerciseDto()
-            {
-                Name = exerciseParams.Name,
-                UserId = exerciseParams.UserId,
-                IsTemplate = false,
-                ExerciseType = (ExerciseTypes)exerciseParams.ExerciseType,
-                WorkoutId = exerciseParams.WorkoutId,
-                Sets = exerciseParams.Sets.Select(p => new ExerciseSetDto()
-                {
-                    Repetitions = p.Repetitions,
-                    Weight = p.Weight,
-                    Distance = p.Distance,
-                    Time = new TimeSpan(p.Time)
-                }).ToList()
-            });
-            return Json(new
-            {
-                result
-            });
-        }
+
     }
 }

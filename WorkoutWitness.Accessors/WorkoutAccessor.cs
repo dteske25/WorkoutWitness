@@ -21,7 +21,6 @@ namespace WorkoutWitness.Accessors
                 Name = name,
                 UserId = userId,
                 Date = DateTime.UtcNow,
-                IsTemplate = false,
             };
             await Insert(workout);
             return workout.Id;

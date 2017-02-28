@@ -6,7 +6,7 @@ var APP_DIR = path.resolve(__dirname, 'WorkoutWitness_UI/containers');
 
 var config = {
     entry: {
-        home: path.join(APP_DIR, 'HomeContainer.jsx'),
+        home: path.join(APP_DIR, 'AppContainer.jsx'),
     },
     output: {
         path: BUILD_DIR,

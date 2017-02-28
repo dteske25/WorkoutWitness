@@ -15,9 +15,6 @@ namespace WorkoutWitness.Core.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string UserId { get; set; }
 
-        [BsonElement(Fields.IsTemplate)]
-        public bool IsTemplate { get; set; }
-
         [BsonElement(Fields.ExerciseType)]
         public ExerciseTypes ExerciseType { get; set; }
 
@@ -34,7 +31,6 @@ namespace WorkoutWitness.Core.Models
             public const string Name = "n";
             public const string UserId = "u";
             public const string WorkoutId = "w";
-            public const string IsTemplate = "it";
             public const string ExerciseType = "et";
             public const string Sets = "s";
         }

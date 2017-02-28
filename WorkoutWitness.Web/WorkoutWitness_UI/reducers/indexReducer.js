@@ -1,4 +1,5 @@
 import workouts from './workoutReducer';
+import { reducer as formReducer } from 'redux-form';
 
 const initialState = {
   workouts: {
@@ -28,6 +29,7 @@ const initialState = {
 export function rootReducer(state = initialState, action){
   return {
     workouts: workouts(state.workouts, action),
-    user: state.user
+    user: state.user,
+    form: formReducer
   };
 }
