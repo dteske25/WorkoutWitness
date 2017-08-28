@@ -8,8 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using WorkoutWitness.Web.Models;
-using WorkoutWitness.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.PlatformAbstractions;
@@ -42,8 +40,9 @@ namespace WorkoutWitness.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMongo(Configuration["ConnectionStrings:DefaultConnection"], "WorkoutWitness");
-            services.AddMongoIdentity(Configuration["ConnectionStrings:DefaultConnection"], "WorkoutWitness");
+            services.AddAccessors(Configuration["ConnectionStrings:DefaultConnection"], "WorkoutWitness");
+            //services.AddMongoIdentity(Configuration["ConnectionStrings:DefaultConnection"], "WorkoutWitness");
+            services.AddEngines();
             services.AddMvc();
             
         }
@@ -69,20 +68,20 @@ namespace WorkoutWitness.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            //app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "api",
-                    template: "api/{controller}/{action}");
 
                 routes.MapRoute(
                     name: "index",
                     template: "{*route}",
                     defaults: new { controller = "Home", action = "Index" });
+                routes.MapRoute(
+                    name: "api",
+                    template: "api/{controller}/{action}");
             });
         }
     }

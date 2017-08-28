@@ -10,7 +10,7 @@ var config = {
     },
     output: {
         path: BUILD_DIR,
-        filename: "/[name].js"
+        filename: "[name].js"
     },
     resolve: {
         extensions: [".js", ".jsx", ".css", ".scss"]
@@ -20,7 +20,7 @@ var config = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
-                loaders: ['babel-loader']
+                loaders: ['babel-loader'],
             },
             {
                 test: /\.css$/,
@@ -40,7 +40,7 @@ var config = {
             },
             {
                 test: /\.scss$/,
-                use: [ "sass-loader" ]
+                use: [ "style-loader", "css-loader", "sass-loader" ]
             },
             {
                 test: /\.png$/,

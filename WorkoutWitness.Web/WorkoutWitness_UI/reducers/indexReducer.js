@@ -1,5 +1,6 @@
-import workouts from './workoutReducer';
-import { reducer as formReducer } from 'redux-form';
+import workoutReducer from './workoutReducer';
+import createWorkoutReducer from './createWorkoutReducer';
+import userReducer from './userReducer';
 
 const initialState = {
   workouts: {
@@ -19,17 +20,22 @@ const initialState = {
       }
     },
   },
+  createWorkout: {
+    workoutName: '',
+    date: new Date(),
+    exercises: [],
+  },
   user: {
     login: "",
     firstName: "",
     lastName: "",
-  }
-}
+  },
+};
 
 export function rootReducer(state = initialState, action){
   return {
-    workouts: workouts(state.workouts, action),
-    user: state.user,
-    form: formReducer
+    workouts: workoutReducer(state.workouts, action),
+    createWorkout: createWorkoutReducer(state.createWorkout, action),
+    user: userReducer(state.user, action)
   };
 }

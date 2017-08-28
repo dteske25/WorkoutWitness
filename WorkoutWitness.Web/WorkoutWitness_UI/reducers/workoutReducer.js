@@ -1,9 +1,9 @@
 import * as types from '../constants/ActionTypes';
 
-export default function workouts(state, action){
+export default function workoutReducer(state, action){
   switch (action.type){
     case types.ADD_WORKOUT:
-      const newId = state.workouts[state.friends.length-1] + 1;
+      const newId = state.workouts[state.workoutList.length-1] + 1;
       return {
         workoutList: state.workoutList.concat(newId),
         workoutsById: Object.assign({}, state.workoutsById, {
