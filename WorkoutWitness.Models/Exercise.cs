@@ -36,7 +36,7 @@ namespace WorkoutWitness.Models
             public const string Sets = "s";
             public const string Distance = "d";
             public const string Time = "t";
-            public const string WorkoutId = "wid";
+            public const string WorkoutId = "wo_id";
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WorkoutWitness.Helpers
     class Program
     {
         const string version = "3.4";
-        const string dbPath = "C:/MongoData";
+        const string dbPath = "R:/MongoData";
         const string npmRelativePath = "WorkoutWitness.Web";
 
         const string helpCommand = "help";
