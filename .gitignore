@@ -306,3 +306,4 @@ $RECYCLE.BIN/
 **/appsettings.*.json
 WorkoutWitness.Web/appsettings.json
 **/build/**
+**/dist/**
