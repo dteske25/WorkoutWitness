@@ -10,19 +10,19 @@ namespace WorkoutWitness.Models
         public string Name { get; set; }
 
         [BsonElement(Fields.Weight)]
-        public double Weight { get; set; }
+        public double? Weight { get; set; }
 
         [BsonElement(Fields.Reps)]
-        public double Reps { get; set; }
+        public double? Reps { get; set; }
 
         [BsonElement(Fields.Sets)]
-        public double Sets { get; set; }
+        public double? Sets { get; set; }
 
         [BsonElement(Fields.Distance)]
-        public double Distance { get; set; }
+        public double? Distance { get; set; }
 
         [BsonElement(Fields.Time)]
-        public TimeSpan Time { get; set; }
+        public TimeSpan? Time { get; set; }
 
         [BsonElement(Fields.WorkoutId)]
         [BsonRepresentation(BsonType.String)]

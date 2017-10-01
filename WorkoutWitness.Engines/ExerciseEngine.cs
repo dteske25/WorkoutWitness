@@ -16,9 +16,20 @@ namespace WorkoutWitness.Engines
             _exerciseAccessor = exerciseAccessor;
         }
 
-        public async Task<Exercise> Add(Exercise exercise)
+        public async Task<Exercise> Add(string name, double? weight, double? reps, 
+            double? sets, double? distance, TimeSpan? time, string workoutId)
         {
-            return await _exerciseAccessor.Insert(exercise);
+            var result = await _exerciseAccessor.Insert(new Exercise
+            {
+                Name = name,
+                Weight = weight,
+                Reps = reps,
+                Sets = sets,
+                Time = time,
+                Distance = distance,
+                WorkoutId = workoutId,
+            });
+            return result;
         }
 
         public async Task AddMany(IEnumerable<Exercise> exercises)

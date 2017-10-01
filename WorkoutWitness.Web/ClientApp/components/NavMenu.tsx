@@ -3,38 +3,19 @@ import { NavLink, Link } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
-        return <div className='main-nav'>
-                <div className='navbar navbar-inverse'>
-                <div className='navbar-header'>
-                    <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-                        <span className='sr-only'>Toggle navigation</span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                    </button>
-                    <Link className='navbar-brand' to={ '/' }>WorkoutWitness.Web</Link>
-                </div>
-                <div className='clearfix'></div>
-                <div className='navbar-collapse collapse'>
-                    <ul className='nav navbar-nav'>
-                        <li>
-                            <NavLink exact to={ '/' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Home
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={ '/counter' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-education'></span> Counter
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={ '/fetchdata' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-th-list'></span> Fetch data
-                            </NavLink>
-                        </li>
-                    </ul>
+        return <nav className='navbar navbar-dark navbar-expand-md bg-dark sticky-top'>
+            <Link className='navbar-brand' to={ '/' }>WorkoutWitness.Web</Link>
+            <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
+                <span className='navbar-toggler-icon'></span>
+            </button>
+            <div className='collapse navbar-collapse'>
+                <div className='navbar-nav'>
+                    <NavLink exact to={ '/' } className='nav-item nav-link' activeClassName='active'>Home</NavLink>
+                    <NavLink className='nav-item nav-link' to={ '/workouts' }  activeClassName='active'>Workouts</NavLink>
+                    <NavLink className='nav-item nav-link' to={ '/counter' } activeClassName='active'>Counter</NavLink>
+                    <NavLink className='nav-item nav-link' to={ '/fetchdata' } activeClassName='active'>Weather</NavLink>
                 </div>
             </div>
-        </div>;
+        </nav>;
     }
 }

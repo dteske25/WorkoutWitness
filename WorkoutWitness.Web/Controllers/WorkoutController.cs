@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WorkoutWitness.Interfaces;
 using WorkoutWitness.Web.Params;
@@ -21,7 +22,7 @@ namespace WorkoutWitness.Web.Controllers
         public async Task<JsonResult> GetWorkouts()
         {
             var result = await _workoutEngine.GetAllWorkouts();
-            return Json(result);
+            return Json(result.OrderByDescending(r => r.Date));
         }
 
         [HttpGet("{id}")]
@@ -34,7 +35,15 @@ namespace WorkoutWitness.Web.Controllers
         [HttpPost("")]
         public async Task<JsonResult> CreateWorkout([FromBody]CreateWorkoutParams createWorkout)
         {
-            var result = await _workoutEngine.Add(createWorkout.Name, DateTime.Now, createWorkout.UserId);
+            if (string.IsNullOrWhiteSpace(createWorkout.UserId))
+            {
+                createWorkout.UserId = "123456789012345678901234";
+            }
+            if (createWorkout.Date == null)
+            {
+                createWorkout.Date = DateTime.Now;
+            }
+            var result = await _workoutEngine.Add(createWorkout.Name, createWorkout.Date, createWorkout.UserId);
             return Json(result);
         }
 
