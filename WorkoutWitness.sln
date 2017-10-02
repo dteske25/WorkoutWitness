@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutWitness.Engines", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutWitness.Helpers", "WorkoutWitness.Helpers\WorkoutWitness.Helpers.csproj", "{327615E5-2B2E-418B-B951-DED08E75F32C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutWitness.Web", "WorkoutWitness.Web\WorkoutWitness.Web.csproj", "{BA0FF7D7-5BA7-43AD-8E88-E1CE216C06A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutWitness.Web", "WorkoutWitness.Web\WorkoutWitness.Web.csproj", "{BA0FF7D7-5BA7-43AD-8E88-E1CE216C06A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

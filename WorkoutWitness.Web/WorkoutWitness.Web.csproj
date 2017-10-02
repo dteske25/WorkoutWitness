@@ -16,27 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Content Remove="ClientApp\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\components\Workout\index.tsx" />
-    <None Remove="ClientApp\store\ExerciseStore.tsx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\WorkoutWitness.Accessors\WorkoutWitness.Accessors.csproj" />
     <ProjectReference Include="..\WorkoutWitness.Engines\WorkoutWitness.Engines.csproj" />
     <ProjectReference Include="..\WorkoutWitness.Interfaces\WorkoutWitness.Interfaces.csproj" />
     <ProjectReference Include="..\WorkoutWitness.Models\WorkoutWitness.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\Workout\AddExercise.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Workout\index.tsx" />
-    <TypeScriptCompile Include="ClientApp\store\ExerciseStore.tsx" />
-    <TypeScriptCompile Include="ClientApp\store\WorkoutStore.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
@@ -61,7 +44,7 @@
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
-      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
+      <DistFiles Include="wwwroot\dist\**; WorkoutWitness_UI\dist\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

@@ -9,7 +9,7 @@ module.exports = (env) => {
 
     const sharedConfig = {
         stats: { modules: false },
-        resolve: { extensions: [ '.js' ] },
+        resolve: { extensions: ['.js'] },
         module: {
             rules: [
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
@@ -74,16 +74,19 @@ module.exports = (env) => {
         target: 'node',
         resolve: { mainFields: ['main'] },
         output: {
-            path: path.join(__dirname, 'ClientApp', 'dist'),
+            path: path.join(__dirname, 'WorkoutWitness_UI', 'dist'),
             libraryTarget: 'commonjs2',
         },
         module: {
-            rules: [ { test: /\.css(\?|$)/, use: isDevBuild ? 'css-loader' : 'css-loader?minimize' } ]
+            rules: [
+                { test: /\.css(\?|$)/, use: isDevBuild ? 'css-loader' : 'css-loader?minimize' },
+                { test: /\.scss$/, use: 'css-loader?minimize!sass-loader?sourceMap' }
+            ]
         },
         entry: { vendor: ['aspnet-prerendering', 'react-dom/server'] },
         plugins: [
             new webpack.DllPlugin({
-                path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'),
+                path: path.join(__dirname, 'WorkoutWitness_UI', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'
             })
         ]

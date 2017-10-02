@@ -1,0 +1,11 @@
+export const FILTER = 'FILTER';
+
+export const WORKOUT_CREATE = 'WORKOUT_CREATE';
+export const WORKOUT_DELETE = 'WORKOUT_DELETE';
+export const WORKOUT_EDIT = 'WORKOUT_EDIT';
+
+export const EXERCISE_ADD = 'EXERCISE_ADD';
+export const EXERCISE_REMOVE = 'EXERCISE_REMOVE';
+export const EXERCISE_SAVE = 'EXERCISE_SAVE';
+
+

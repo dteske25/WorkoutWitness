@@ -1,0 +1,18 @@
+@import '../../App';
+
+.value-picker__container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+
+    .value-picker__button {
+        flex: 1 0 auto;
+    }
+
+    .value-picker__input {
+        flex: 2 0 auto;
+
+    }
+}
