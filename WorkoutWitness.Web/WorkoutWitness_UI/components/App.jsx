@@ -1,5 +1,5 @@
 import React from 'react';
-import ValuePicker from './shared/ValuePicker/index.jsx';
+import ValuePicker from './shared/ValuePicker/index';
 
 import './App.scss';
 
