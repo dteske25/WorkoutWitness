@@ -25,7 +25,9 @@ function renderApp() {
     ReactDOM.render(
         <AppContainer>
             <Provider store={ store }>
-                <ConnectedRouter history={ history } children={ routes } />
+                <ConnectedRouter history={ history } >
+                    {routes}
+                </ConnectedRouter>
             </Provider>
         </AppContainer>,
         document.getElementById('react-app')

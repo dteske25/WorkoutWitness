@@ -1,28 +1,28 @@
-import { createStore, applyMiddleware, compose, combineReducers, GenericStoreEnhancer, Store, StoreEnhancerStoreCreator, ReducersMapObject } from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import rootReducer from '../reducers';
+import { initialState, rootReducer } from '../reducers';
 
-export default function configureStore(history, initialState) {
+export default function configureStore(history, state = initialState) {
+    const logger = createLogger({collapsed: true});
     const createStoreWithMiddleware = compose(
-        applyMiddleware(thunk, routerMiddleware(history)),
+        applyMiddleware(thunk, logger),
+        applyMiddleware(routerMiddleware(history)),
     )(createStore);
 
-    // Combine all reducers and instantiate the app-wide store instance
-    const allReducers = buildRootReducer(rootReducer);
-    const store = createStoreWithMiddleware(allReducers, initialState);
+    // Instantiate the app-wide store instance
+    const store = createStoreWithMiddleware(rootReducer, state);
 
     // Enable Webpack hot module replacement for reducers
     if (module.hot) {
         module.hot.accept('../reducers', () => {
             const nextRootReducer = require('../reducers');
-            store.replaceReducer(buildRootReducer(nextRootReducer.reducers));
+            console.log(nextRootReducer.rootReducer);
+            store.replaceReducer(nextRootReducer.rootReducer);
         });
     }
 
     return store;
 }
 
-function buildRootReducer(allReducers) {
-    return combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));
-}

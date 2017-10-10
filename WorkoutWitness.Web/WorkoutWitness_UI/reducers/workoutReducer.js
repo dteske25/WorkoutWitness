@@ -2,7 +2,7 @@
 
 const workoutReducer = (state, action) => {
     switch (action.type) {
-        case types.EXERCISE_FETCH:
+        case types.WORKOUT_FETCH:
             return Object.assign({}, state, {
                 'workouts': action.data
             });

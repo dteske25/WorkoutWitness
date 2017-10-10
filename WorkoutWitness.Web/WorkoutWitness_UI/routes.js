@@ -6,5 +6,5 @@ import Workouts from './components/Workouts';
 
 export const routes = <Layout>
     <Route exact path='/' component={App} />
-    <Route exact path='/workouts' component={Workouts} />
+    <Route exact path='/workouts/:id?' component={Workouts} />
 </Layout>;
