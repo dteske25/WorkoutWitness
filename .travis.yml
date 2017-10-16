@@ -12,5 +12,5 @@ branches:
   - master 
 before_install:
   - sudo apt-get update
-script
+script:
   - dotnet build WorkoutWitness.Web
