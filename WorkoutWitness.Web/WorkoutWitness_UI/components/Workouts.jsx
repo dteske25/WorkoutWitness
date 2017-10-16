@@ -1,8 +1,10 @@
 ﻿import * as React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators, dispatch } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { loadWorkouts } from '../actions/fetch';
 import * as WorkoutActions from '../actions/workoutActions';
+import * as ExerciseActions from '../actions/exerciseActions';
 import WorkoutCard from './shared/WorkoutCard';
 
 class Workouts extends React.Component {
@@ -11,52 +13,31 @@ class Workouts extends React.Component {
     }
 
     componentWillMount() {
-        
-    }
-
-    handleOnClick() {
         const { dispatch } = this.props;
         dispatch(loadWorkouts());
-    }
+     }
 
     render() {
-        console.log({ 'props': this.props });
         const { workouts } = this.props;
         let renderedWorkouts = [];
         if (workouts){
             renderedWorkouts = workouts.map(w => {
-                return <WorkoutCard name={w.name} />
+                return <WorkoutCard key={w.id} workout={w} />
             });
         }
-        return (<div>
-            <h1>Workouts</h1>
+        return (<div className={'row'}>
             {renderedWorkouts}
-            <button onClick={this.handleOnClick.bind(this)}>Dispatch Fetch</button>
         </div>);
     }
 }
 
-const mapStateToProps = (state, routerProps) => {
-    let id = '';
-    if (routerProps && routerProps.match.params && routerProps.match.params.id){
-        id = routerProps.match.params.id;
-    }
+const mapStateToProps = (state, ownProps) => {
     return {
         workouts: state.index.workouts,
-        selectedWorkout: id
+        exercises: state.index.exercises,
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: {
-            workout: bindActionCreators(WorkoutActions, dispatch),
-        },
-        dispatch,
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Workouts);
+export default withRouter(connect(
+    mapStateToProps
+)(Workouts))

@@ -20,6 +20,13 @@ export default class ValuePicker extends React.Component {
         return value;
     }
 
+    setValue(startValue) {
+        this.setState({
+            value: Number(startValue)
+        });
+        console.log(this.state);
+    }
+
     handleInput(e) {
         this.setState({
             value: Number(e.currentTarget.value)
@@ -43,18 +50,20 @@ export default class ValuePicker extends React.Component {
     }
 
     render() {
-        const { type, placeholder } = this.props;
-        return (<div className={'value-picker__container'}>
+        const { type, label, className } = this.props;
+        return (<div className={`value-picker__container ${className}`}>
             <button
                 className={'value-picker__button'}
                 onClick={() => this.handleDecrementButton()}
             >
                 -
             </button>
+            <span className={'value-picker__input-label text-center'}>
+                {`${label}:`}
+            </span>
             <input
-                className={'value-picker__input'}
                 type={type}
-                placeholder={placeholder}
+                className={'value-picker__input text-center'}
                 onChange={this.handleInput.bind(this)}
                 value={this.state.value}
             />

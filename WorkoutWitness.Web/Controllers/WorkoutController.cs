@@ -13,16 +13,18 @@ namespace WorkoutWitness.Web.Controllers
     public class WorkoutController : Controller
     {
         private readonly IWorkoutEngine _workoutEngine;
-        public WorkoutController(IWorkoutEngine workoutEngine)
+        private readonly IExerciseEngine _exerciseEngine;
+        public WorkoutController(IWorkoutEngine workoutEngine, IExerciseEngine exerciseEngine)
         {
             _workoutEngine = workoutEngine;
+            _exerciseEngine = exerciseEngine;
         }
 
         [HttpGet("")]
         public async Task<JsonResult> GetWorkouts()
         {
             var result = await _workoutEngine.GetAllWorkouts();
-            return Json(result.OrderByDescending(r => r.Date));
+            return Json(result.OrderByDescending(r => r.Date).Take(25));
         }
 
         [HttpGet("{id}")]
@@ -44,6 +46,10 @@ namespace WorkoutWitness.Web.Controllers
                 createWorkout.Date = DateTime.Now;
             }
             var result = await _workoutEngine.Add(createWorkout.Name, createWorkout.Date, createWorkout.UserId);
+            foreach (var exercise in createWorkout.Exercises)
+            {
+                await _exerciseEngine.Add(exercise.Name, exercise.Weight, exercise.Reps, exercise.Sets, exercise.Distance, exercise.Time, result.Id);
+            }
             return Json(result);
         }
 

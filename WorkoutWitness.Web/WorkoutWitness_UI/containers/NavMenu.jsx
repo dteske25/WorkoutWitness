@@ -10,8 +10,8 @@ export default class NavMenu extends React.Component {
             </button>
             <div className={'collapse navbar-collapse'}>
                 <div className={'navbar-nav'}>
-                    <NavLink exact to={'/'} className={'nav-item nav-link'} activeClassName={'active'}>Home</NavLink>
-                    <NavLink className={'nav-item nav-link'} to={'/workouts'} activeClassName={'active'}>Workouts</NavLink>
+                    <NavLink className={'nav-item nav-link'} to={'/'} activeClassName={'active'}>Home</NavLink>
+                    <NavLink className={'nav-item nav-link'} to={'/create'} activeClassName={'active'}>New</NavLink>
                 </div>
             </div>
         </nav>);

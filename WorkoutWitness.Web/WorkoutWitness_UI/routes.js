@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
-import Layout from './containers/Layout';
-import App from './components/App';
+import App from './containers/App';
 import Workouts from './components/Workouts';
+import Workout from './components/Workout';
+import WorkoutCreator from './components/WorkoutCreator';
 
-export const routes = <Layout>
-    <Route exact path='/' component={App} />
-    <Route exact path='/workouts/:id?' component={Workouts} />
-</Layout>;
+export const routes = <App>
+    <Route exact path='/' component={Workouts} />
+    <Route exact path='/workout/:id' component={Workout} />
+    <Route exact path='/create/' component={WorkoutCreator} />
+</App>;
