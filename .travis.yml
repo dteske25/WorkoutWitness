@@ -13,5 +13,6 @@ branches:
 before_install:
   - sudo apt-get update
   - cd WorkoutWitness.Web && npm install
+  - cd ..
 script:
-  - dotnet build WorkoutWitness.Web
+  - dotnet build ./WorkoutWitness.Web/
