@@ -1,0 +1,16 @@
+sudo: required
+language: csharp
+dotnet: 2.0.0
+mono: none
+dist: trusty
+env: 
+  - CLI_VERSION=latest
+os:
+  - linux
+branches:
+  only:
+  - master 
+before_install:
+  - sudo apt-get update
+script
+  - dotnet build WorkoutWitness.Web
