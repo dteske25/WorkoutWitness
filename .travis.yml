@@ -14,15 +14,14 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install nodejs
   - sudo chmod 755 build.sh
-  - alias npm="$(type -P npm)"
 script:
-  - sudo ./build.sh
+  - ./build.sh
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: "workout-witness-dist"
-    region: "us-west-2"
+    region: us-west-2
     skip_cleanup: true
     local_dir: release
   - provider: codedeploy
