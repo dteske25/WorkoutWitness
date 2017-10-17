@@ -14,7 +14,7 @@ sudo dotnet publish -c Release -o ./dist
 
 printf "\n\nZipping\n\n"
 cd dist 
-zip -r latest *
+zip -r latest .
 cd ../..
 mkdir -p release
 mv WorkoutWitness.Web/dist/latest.zip release/latest.zip
