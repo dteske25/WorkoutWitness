@@ -6,11 +6,11 @@ dotnet restore
 cd WorkoutWitness.Web
 mkdir dist
 
-sudo npm install
-sudo npm rebuild node-sass
+npm install
+npm rebuild node-sass
 
 printf "\n\nPublishing\n\n"
-sudo dotnet publish -c Release -o ./dist
+dotnet publish -c Release -o ./dist
 
 printf "\n\nZipping\n\n"
 cd dist 
