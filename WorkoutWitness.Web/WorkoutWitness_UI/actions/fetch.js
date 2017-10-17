@@ -2,6 +2,7 @@
 import * as types from './types';
 import * as WorkoutActions from './workoutActions';
 import * as ExerciseActions from './exerciseActions';
+import * as WorkoutCreatorActions from './workoutCreatorActions';
 
 export function loadWorkouts() {
     return dispatch => {
@@ -27,18 +28,38 @@ export function loadExercisesForWorkoutId(id) {
     };
 }
 
-export function postNewWorkout(workoutName, exercises) {
+export function postNewWorkout(workoutName) {
     return dispatch => {
         fetch('/api/workout', {
             method: 'post',
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
-            body: JSON.stringify({
-                'name': workoutName,
-                'date': new Date(),
-                exercises
+            body: JSON.stringify(workoutName)
+        })
+            .then(response => response.json())
+            .then(data => {
+                dispatch(WorkoutActions.WorkoutCreatedAction(data));
+            });
+    };
+}
+
+export function postExercise(workoutId, exercise) {
+    return dispatch => {
+        fetch(`/api/exercise/${workoutId}`, {
+            method: 'post',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(exercise)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (exercise.id) {
+                    dispatch(ExerciseActions.ExerciseEditAction(data));
+                } else {
+                    dispatch(ExerciseActions.ExerciseAddAction(data));
+                }
             })
-        });
     };
 }

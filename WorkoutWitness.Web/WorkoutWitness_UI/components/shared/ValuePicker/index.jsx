@@ -4,57 +4,17 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 export default class ValuePicker extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: 0
-        };
-    }
-
-    clear() {
-        this.setState({ value: 0 });
-    }
-
-    getValue() {
-        const { value } = this.state;
-        return value;
-    }
-
-    setValue(startValue) {
-        this.setState({
-            value: Number(startValue)
-        });
-        console.log(this.state);
-    }
-
     handleInput(e) {
-        this.setState({
-            value: Number(e.currentTarget.value)
-        });
-    }
-
-    handleIncrementButton() {
-        const { value } = this.state;
-        const { incrementBy } = this.props;
-        this.setState({
-            value: value + incrementBy
-        });
-    }
-
-    handleDecrementButton() {
-        const { value } = this.state;
-        const { incrementBy } = this.props;
-        this.setState({
-            value: value - incrementBy
-        });
+        const { label, onChangeFunction } = this.props;
+        onChangeFunction(label.toLowerCase(), e.currentTarget.value);
     }
 
     render() {
-        const { type, label, className } = this.props;
+        const { label, className, value, onChangeFunction, incrementBy } = this.props;
         return (<div className={`value-picker__container ${className}`}>
             <button
                 className={'value-picker__button'}
-                onClick={() => this.handleDecrementButton()}
+                onClick={() => onChangeFunction(label.toLowerCase(), value - incrementBy)}
             >
                 -
             </button>
@@ -62,14 +22,14 @@ export default class ValuePicker extends React.Component {
                 {`${label}:`}
             </span>
             <input
-                type={type}
+                type='number'
                 className={'value-picker__input text-center'}
                 onChange={this.handleInput.bind(this)}
-                value={this.state.value}
+                value={value}
             />
             <button
                 className={'value-picker__button'}
-                onClick={() => this.handleIncrementButton()}
+                onClick={() => onChangeFunction(label.toLowerCase(), value + incrementBy)}
             >
                 +
             </button>

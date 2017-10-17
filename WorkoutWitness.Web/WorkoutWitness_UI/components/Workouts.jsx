@@ -19,6 +19,7 @@ class Workouts extends React.Component {
 
     render() {
         const { workouts } = this.props;
+        console.log(this.props);
         let renderedWorkouts = [];
         if (workouts){
             renderedWorkouts = workouts.map(w => {
@@ -35,6 +36,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         workouts: state.index.workouts,
         exercises: state.index.exercises,
+        workoutCreator: state.index.workoutCreator,
     }
 };
 

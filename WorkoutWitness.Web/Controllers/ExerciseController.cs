@@ -34,10 +34,20 @@ namespace WorkoutWitness.Web.Controllers
         }
 
         [HttpPost("{workoutId}")]
-        public async Task<ActionResult> CreateExercise([FromBody]CreateExerciseParams param, string workoutId)
+        public async Task<ActionResult> CreateOrUpdate([FromBody]CreateExerciseParams param, string workoutId)
         {
-            var result = await _exerciseEngine.Add(param.Name, param.Weight, param.Reps, param.Sets, param.Distance, param.Time, workoutId);
-            return Json(result);
+            
+            if (string.IsNullOrWhiteSpace(param.Id))
+            {
+                var result = await _exerciseEngine.Add(param.Name, param.Weight, param.Reps, param.Sets, param.Distance, param.Time, workoutId);
+                return Json(result);
+            } 
+            else
+            {
+                var result = await _exerciseEngine.Update(param.Id, param.Name, param.Weight, param.Reps, param.Sets, param.Distance, param.Time);
+                return Json(result);
+            }
+            
         }
 
         [HttpDelete("{exerciseId}")]

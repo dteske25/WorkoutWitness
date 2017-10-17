@@ -1,9 +1,10 @@
 ﻿import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { postNewWorkout } from '../actions/fetch';
+import { postNewWorkout, postExercise } from '../actions/fetch';
 import * as WorkoutActions from '../actions/workoutActions';
 import * as ExerciseActions from '../actions/exerciseActions';
+import * as WorkoutCreatorActions from '../actions/workoutCreatorActions';
 import ValuePicker from './shared/ValuePicker';
 
 import './WorkoutCreator.scss';
@@ -11,111 +12,147 @@ import './WorkoutCreator.scss';
 class WorkoutCreator extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            'workoutName': '',
-            'exercises': [],
-            'currentExerciseName': ''
-        };
     }
 
     handleBack() {
-        const { exercises } = this.state;
-        const lastOne = exercises.pop();
-        this.weightValue.setValue(lastOne.weight);
-        this.repsValue.setValue(lastOne.reps);
-        this.setsValue.setValue(lastOne.sets);
-        this.setState({
-            'exercises': exercises,
-            'currentExerciseName': lastOne.name
-        });
+        const { dispatch, workoutCreator } = this.props;
+        if (workoutCreator.currentExercise.name) {
+            dispatch(postExercise(workoutCreator.workoutId, workoutCreator.currentExercise));
+        }
+        dispatch(WorkoutCreatorActions.PrevExercise());
     }
 
     handleNext() {
-        const { exercises, currentExerciseName } = this.state;
-        exercises.push({
-            'name': currentExerciseName,
-            'weight': this.weightValue.getValue(),
-            'reps': this.repsValue.getValue(),
-            'sets': this.setsValue.getValue(),
-        });
-        this.weightValue.clear();
-        this.repsValue.clear();
-        this.setsValue.clear();
-        this.setState({
-            'exercises': exercises,
-            'currentExerciseName': ''
-        });
+        const { dispatch, workoutCreator } = this.props;
+        if (workoutCreator.currentExercise.name) {
+            dispatch(postExercise(workoutCreator.workoutId, workoutCreator.currentExercise));
+            dispatch(WorkoutCreatorActions.NextExercise());
+        }
     }
 
     handleDone() {
-        const { workoutName, exercises } = this.state;
-        const { dispatch, history } = this.props;
-        dispatch(postNewWorkout(workoutName, exercises));
+        const { dispatch, workoutCreator, history } = this.props;
+        if (workoutCreator.currentExercise.name) {
+            dispatch(postExercise(workoutCreator.workoutId, workoutCreator.currentExercise));
+        }
         history.push('/');
+
     }
 
-    handleExerciseInput(e) {
-        this.setState({ 'currentExerciseName': e.currentTarget.value });
+    handleExerciseNameInput(e) {
+        const { dispatch } = this.props;
+        dispatch(WorkoutCreatorActions.CurrentExerciseValueChange('name', e.currentTarget.value));
     }
 
-    handleWorkoutInput(e) {
-        this.setState({ 'workoutName': e.currentTarget.value });
+    handleWorkoutNameInput(e) {
+        const { dispatch } = this.props;
+        dispatch(WorkoutCreatorActions.WorkoutNameChange(e.currentTarget.value));
+    }
+
+    handleWorkoutNameBlur() {
+        const { dispatch, workoutCreator } = this.props;
+        dispatch(postNewWorkout(workoutCreator.workoutName));
+    }
+
+    handleValuePicker(label, value) {
+        const { dispatch } = this.props;
+        const formattedValue = value ? Number(value) : '';
+        dispatch(WorkoutCreatorActions.CurrentExerciseValueChange(label, formattedValue));
+    }
+
+
+    renderWorkoutNameInput() {
+        const { workoutName } = this.props.workoutCreator;
+        return (<input
+            className={'workout-creator__workout-input text-center'}
+            type='text'
+            placeholder='Workout Name'
+            onInput={this.handleWorkoutNameInput.bind(this)}
+            onBlur={this.handleWorkoutNameBlur.bind(this)}
+            value={workoutName} />);
+    }
+
+    renderExerciseNameInput() {
+        const { currentExercise } = this.props.workoutCreator;
+        return (<input
+            className={'workout-creator__exercise-input text-center'}
+            type='text'
+            placeholder='Exercise Name'
+            onInput={this.handleExerciseNameInput.bind(this)}
+            value={currentExercise.name} />);
+    }
+
+
+    renderExerciseInputs() {
+        const { currentExercise } = this.props.workoutCreator;
+        return (<div>
+            <ValuePicker
+                className={'workout-creator__value-picker'}
+                onChangeFunction={this.handleValuePicker.bind(this)}
+                incrementBy={5}
+                label={'Weight'}
+                value={currentExercise.weight ? currentExercise.weight : '' }
+            />
+            <ValuePicker
+                className={'workout-creator__value-picker'}
+                onChangeFunction={this.handleValuePicker.bind(this)}
+                incrementBy={1}
+                label={'Reps'}
+                value={currentExercise.reps ? currentExercise.reps : '' }
+            />
+            <ValuePicker
+                className={'workout-creator__value-picker'}
+                onChangeFunction={this.handleValuePicker.bind(this)}
+                incrementBy={1}
+                label={'Sets'}
+                value={currentExercise.sets ? currentExercise.sets : '' }
+            />
+        </div>);
+    }
+
+    renderNavigationButtons() {
+        return (<div className={'workout-creator__navigation'}>
+            <button
+                className={'red'}
+                onClick={this.handleBack.bind(this)}
+            >
+                Previous Exercise
+                </button>
+            <button
+                className={'green'}
+                onClick={this.handleNext.bind(this)}
+            >
+                Next Exercise
+                </button>
+            <button
+                className={'blue'}
+                onClick={this.handleDone.bind(this)}
+            >
+                Done
+                </button>
+        </div>);
     }
 
     render() {
-        const { exercises, workoutName, currentExerciseName } = this.state;
+        const { workoutName, currentExercise, exercises } = this.props.workoutCreator;
+        const renderedWorkoutNameInput = this.renderWorkoutNameInput();
+        let renderedExerciseNameInput = '';
+        if (workoutName) {
+            renderedExerciseNameInput = this.renderExerciseNameInput();
+        }
+        let renderedExerciseInputs = '';
+        let renderedNavigationButtons = this.renderNavigationButtons();
+        if (currentExercise.name) {
+            renderedExerciseInputs = this.renderExerciseInputs();
+        }
+
+
         return (<div>
-            <input
-                className={'workout-creator__workout-input text-center'}
-                type='text'
-                placeholder='Workout Name'
-                onInput={this.handleWorkoutInput.bind(this)}
-                value={workoutName} />
-            <input
-                className={'workout-creator__exercise-input text-center'}
-                type='text'
-                placeholder='Exercise Name'
-                onInput={this.handleExerciseInput.bind(this)}
-                value={currentExerciseName} />
-            <ValuePicker
-                className={'workout-creator__value-picker'}
-                ref={(input) => this.weightValue = input}
-                type={'number'}
-                incrementBy={5}
-                label={'Weight'} />
-            <ValuePicker
-                className={'workout-creator__value-picker'}
-                ref={(input) => this.repsValue = input}
-                type={'number'}
-                incrementBy={1}
-                label={'Reps'} />
-            <ValuePicker
-                className={'workout-creator__value-picker'}
-                ref={(input) => this.setsValue = input}
-                type={'number'}
-                incrementBy={1}
-                label={'Sets'} />
-            <p>{`Exercises: ${exercises.length}`}</p>
-            <div className={'workout-creator__navigation'}>
-                <button
-                    className={'red'}
-                    onClick={this.handleBack.bind(this)}
-                >
-                    Last Exercise
-                </button>
-                <button
-                    className={'green'}
-                    onClick={this.handleNext.bind(this)}
-                >
-                    Add Exercise
-                </button>
-                <button
-                    className={'blue'}
-                    onClick={this.handleDone.bind(this)}
-                >
-                    Save Workout
-                </button>
-            </div>
+            {renderedWorkoutNameInput}
+            {renderedExerciseNameInput}
+            {renderedExerciseInputs}
+            <p>{`Exercises Added: ${exercises.length}`}</p>
+            {renderedNavigationButtons}
         </div>);
     }
 }
@@ -124,6 +161,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         workouts: state.index.workouts,
         exercises: state.index.exercises,
+        workoutCreator: state.index.workoutCreator
     }
 };
 

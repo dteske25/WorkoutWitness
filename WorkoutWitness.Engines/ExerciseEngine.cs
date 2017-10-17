@@ -56,5 +56,17 @@ namespace WorkoutWitness.Engines
         {
             await _exerciseAccessor.Delete(e => e.WorkoutId == workoutId);
         }
+
+        public async Task<Exercise> Update(string exerciseId, string name, double? weight, double? reps, double? sets, double? distance, TimeSpan? time)
+        {
+            var entity = await _exerciseAccessor.First(e => e.Id == exerciseId);
+            entity.Name = name;
+            entity.Weight = weight;
+            entity.Reps = reps;
+            entity.Sets = sets;
+            entity.Distance = distance;
+            entity.Time = time;
+            return await _exerciseAccessor.Update(entity);
+        }
     }
 }

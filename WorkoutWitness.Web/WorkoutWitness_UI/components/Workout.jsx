@@ -41,6 +41,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         workouts: state.index.workouts,
         exercises: state.index.exercises,
+        workoutCreator: state.index.workoutCreator
     }
 };
 

@@ -3,17 +3,32 @@ import { combineReducers } from 'redux';
 import * as types from '../actions/types';
 import workoutReducer from './workoutReducer';
 import exerciseReducer from './exerciseReducer';
+import workoutCreatorReducer from './workoutCreatorReducer';
 
 
 export const initialState = {
     workouts: [],
-    exercises: []
+    exercises: [],
+    workoutCreator: {
+        'workoutName': '',
+        'workoutId': '',
+        'currentIndex': 0,
+        'currentExercise': {
+            'id': '',
+            'name': '',
+            'weight': 0,
+            'reps': 0,
+            'sets': 0
+        },
+        'exercises': []
+    }
 };
 
 function index(state = initialState, action){
     return {
         workouts: workoutReducer(state.workouts, action),
-        exercises: exerciseReducer(state.exercises, action)
+        exercises: exerciseReducer(state.exercises, action),
+        workoutCreator: workoutCreatorReducer(state.workoutCreator, action)
     };
 }
 

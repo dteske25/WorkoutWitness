@@ -6,3 +6,18 @@ export function ExerciseFetchAction(data) {
         data
     };
 }
+
+export function ExerciseAddAction(data) {
+    return {
+        type: types.EXERCISE_ADD,
+        data
+    };
+}
+
+export function ExerciseEditAction(data) {
+    return {
+        type: types.EXERCISE_EDIT,
+        data
+    };
+}
+
