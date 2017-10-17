@@ -12,6 +12,7 @@ branches:
   - master 
 before_install:
   - sudo apt-get update
+  - sudo apt-get install nodejs
   - sudo chmod 755 build.sh
   - if [[ `npm -v` != 4* ]]; then npm i -g npm@4; fi
 script:
