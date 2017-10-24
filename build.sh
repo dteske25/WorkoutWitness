@@ -1,20 +1,19 @@
 #!/bin/bash
 
-printf "\n\nRestoring\n\n"
+printf "\n\n Restoring \n\n"
 
 dotnet restore
 cd WorkoutWitness.Web
-mkdir dist
 
 npm install
 npm rebuild node-sass
 
-printf "\n\nPublishing\n\n"
-dotnet publish -c Release -o ./dist
+printf "\n\n Building \n\n"
+dotnet build -c Release
 
-printf "\n\nZipping\n\n"
-cd dist 
+printf "\n\n Zipping UI \n\n"
+cd wwwroot/dist
 zip -r latest .
-cd ../..
+cd ../../..
 mkdir -p release
-mv WorkoutWitness.Web/dist/latest.zip release/latest.zip
+mv WorkoutWitness.Web/wwwroot/dist/latest.zip release/latest.zip
