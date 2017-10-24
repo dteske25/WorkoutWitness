@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const merge = require('webpack-merge');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -52,7 +53,14 @@ module.exports = (env) => {
             })
         ] : [
                 // Plugins that apply in production builds only
-                new webpack.optimize.UglifyJsPlugin()
+                new webpack.optimize.UglifyJsPlugin(),
+                new CompressionPlugin({
+                    asset: "[path].gz[query]",
+                    algorithm: "gzip",
+                    test: /\.js$|\.css$|\.html$/,
+                    threshold: 10240,
+                    minRatio: 0.8
+                  })
             ])
     });
 
@@ -67,7 +75,14 @@ module.exports = (env) => {
                 manifest: require('./WorkoutWitness_UI/dist/vendor-manifest.json'),
                 sourceType: 'commonjs2',
                 name: './vendor'
-            })
+            }), 
+            new CompressionPlugin({
+                asset: "[path].gz[query]",
+                algorithm: "gzip",
+                test: /\.js$|\.css$|\.html$/,
+                threshold: 10240,
+                minRatio: 0.8
+              })
         ],
         output: {
             libraryTarget: 'commonjs',

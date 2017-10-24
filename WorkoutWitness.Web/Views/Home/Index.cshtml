@@ -5,5 +5,10 @@
 <div id="react-app" asp-prerender-module="WorkoutWitness_UI/dist/main-server">Loading...</div>
 
 @section scripts {
-    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+    <environment names="Development">
+        <script src="~/dist/main-client.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Production">
+        <script src="https://s3-us-west-2.amazonaws.com/workout-witness/latest.zip"></script>
+    </environment>
 }

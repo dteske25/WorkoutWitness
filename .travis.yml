@@ -23,4 +23,4 @@ deploy:
     bucket: "workout-witness"
     region: us-west-2
     skip_cleanup: true
-    local_dir: release
+    local_dir: WorkoutWitness.Web/wwwroot/dist

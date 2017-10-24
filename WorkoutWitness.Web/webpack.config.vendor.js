@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -67,7 +68,14 @@ module.exports = (env) => {
                 name: '[name]_[hash]'
             })
         ].concat(isDevBuild ? [] : [
-            new webpack.optimize.UglifyJsPlugin()
+            new webpack.optimize.UglifyJsPlugin(),
+            new CompressionPlugin({
+                asset: "[path].gz[query]",
+                algorithm: "gzip",
+                test: /\.js$|\.css$|\.html$/,
+                threshold: 10240,
+                minRatio: 0.8
+              })
         ])
     });
 
@@ -89,7 +97,14 @@ module.exports = (env) => {
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'WorkoutWitness_UI', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'
-            })
+            }),
+            new CompressionPlugin({
+                asset: "[path].gz[query]",
+                algorithm: "gzip",
+                test: /\.js$|\.css$|\.html$/,
+                threshold: 10240,
+                minRatio: 0.8
+              })
         ]
     });
 
