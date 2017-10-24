@@ -10,3 +10,8 @@ npm rebuild node-sass
 
 printf "\n\n Building \n\n"
 dotnet build -c Release
+
+
+printf "\n\n Running Webpack \n\n"
+node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod
+node node_modules/webpack/bin/webpack.js --env.prod
