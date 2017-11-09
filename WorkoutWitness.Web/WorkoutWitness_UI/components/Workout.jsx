@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { loadExercisesForWorkoutId } from '../actions/fetch';
+import { loadExercisesForWorkoutId, deleteExercise } from '../actions/fetch';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ExerciseCard from './shared/ExerciseCard';
@@ -11,13 +11,18 @@ class Workout extends React.Component {
         dispatch(loadExercisesForWorkoutId(match.params.id));
     }
 
+    onDeleteExercise(id) {
+        const { dispatch, match } = this.props;
+        dispatch(deleteExercise(id, match.params.id));
+    }
+
     render() {
         const { exercises } = this.props;
 
         let renderedExercises = [];
         if (exercises) {
             renderedExercises = exercises.map(e => {
-                return <ExerciseCard key={e.id} exercise={e} />
+                return <ExerciseCard key={e.id} exercise={e} deleteFunction={this.onDeleteExercise.bind(this, e.id)} />
             });
         }
 

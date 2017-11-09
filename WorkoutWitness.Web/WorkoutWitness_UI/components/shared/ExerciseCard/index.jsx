@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 
 export default class ExerciseCard extends React.Component {
-        makeStat(label, value) {
+    makeStat(label, value) {
         if (value) {
             return (<p className={'card-text'}>
                 <strong>
@@ -13,9 +13,8 @@ export default class ExerciseCard extends React.Component {
         return '';
     }
 
-
     render() {
-        const { exercise } = this.props;
+        const { exercise, deleteFunction } = this.props;
 
         const weight = this.makeStat('Weight', exercise.weight);
         const reps = this.makeStat('Reps', exercise.reps);
@@ -32,6 +31,7 @@ export default class ExerciseCard extends React.Component {
                 {sets}
                 {distance}
                 {time}
+                <button className={'btn btn-danger'} onClick={deleteFunction}>Delete</button>
             </div>
         </div>);
     }

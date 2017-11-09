@@ -51,7 +51,7 @@ class WorkoutCreator extends React.Component {
 
     handleWorkoutNameBlur() {
         const { dispatch, workoutCreator } = this.props;
-        dispatch(postNewWorkout(workoutCreator.workoutName));
+        dispatch(postNewWorkout(workoutCreator.workoutName, workoutCreator.workoutId ? workoutCreator.workoutId : ''));
     }
 
     handleValuePicker(label, value) {

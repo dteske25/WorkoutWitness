@@ -36,14 +36,21 @@ namespace WorkoutWitness.Web.Controllers
         }
 
         [HttpPost("")]
-        public async Task<JsonResult> CreateWorkout([FromBody]string workoutName)
+        public async Task<JsonResult> CreateWorkout([FromBody]string workoutName, [FromQuery]string id)
         {
             var userId = "123456789012345678901234";
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                var renamed = await _workoutEngine.Rename(workoutName, id);
+                return Json(renamed);
+
+            }
             var result = await _workoutEngine.Add(workoutName, DateTime.UtcNow, userId);
             return Json(result);
         }
 
-        public async Task<ActionResult> DeleteWorkout(string id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteWorkout([FromRoute]string id)
         {
             await _workoutEngine.Remove(id);
             return Ok();
