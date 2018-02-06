@@ -26,6 +26,8 @@ namespace WorkoutWitness.Web
             services.AddEngines();
 
             services.AddMvc();
+            services.AddAuthentication();
+            services.AddAuth();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +61,7 @@ namespace WorkoutWitness.Web
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-
+            app.UseAuthentication();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

@@ -15,7 +15,7 @@ namespace WorkoutWitness.Accessors
         public readonly IMongoCollection<T> _collection;
         public MongoAccessor(MongoContext context)
         {
-            _collection = context._database.GetCollection<T>(typeof(T).Name.ToString());
+            _collection = context._database.GetCollection<T>(typeof(T).Name);
         }
 
         public Task<IQueryable<T>> AsQueryable()

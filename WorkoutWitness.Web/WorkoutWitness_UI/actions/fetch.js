@@ -62,7 +62,7 @@ export function deleteWorkout(workoutId) {
         fetch(`/api/workout/${workoutId}`, {
             method: 'delete'
         }).then(response => {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 dispatch(loadWorkouts());
             } else {
                 console.error(response);
@@ -76,7 +76,7 @@ export function deleteExercise(exerciseId, workoutId) {
         fetch(`/api/exercise/${exerciseId}`, {
             method: 'delete'
         }).then(response => {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 dispatch(loadExercisesForWorkoutId(workoutId));
             } else {
                 console.error(response);

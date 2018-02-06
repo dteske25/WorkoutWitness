@@ -1,4 +1,6 @@
-﻿namespace WorkoutWitness.Models
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace WorkoutWitness.Models
 {
     public interface IBaseMongoObject
     {
