@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
+using Hangfire;
+using Hangfire.Mongo;
+using System;
 
 namespace WorkoutWitness.Web
 {
@@ -16,32 +19,44 @@ namespace WorkoutWitness.Web
         }
 
         public IConfiguration Configuration { get; }
-        public Process MongoDbProcess { get; set; }
-        public static string MongoDbVersion = "3.4";
+        public BackgroundJobServer _hangfireServer { get; set; }
+        //public Process MongoDbProcess { get; set; }
+        //public static string MongoDbVersion = "3.4";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAccessors(Configuration["ConnectionStrings:DefaultConnection"], "WorkoutWitness");
             services.AddEngines();
-
+            services.AddHangfire(h => h.UseMongoStorage(Configuration["ConnectionStrings:DefaultConnection"], "WorkoutWitness", new MongoStorageOptions
+            {
+                Prefix = "Hangfire"
+            }));
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseHangfireServer(new BackgroundJobServerOptions {
+                Queues = new [] { "message" },
+                
+            });
+            app.UseHangfireDashboard();
+            _hangfireServer = new BackgroundJobServer();
+            var applicationLifetime = app.ApplicationServices.GetRequiredService<IApplicationLifetime>();
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
             if (env.IsDevelopment())
             {
-                // Start a local MongoDb process, and register it to shut down if the application does
-                var applicationLifetime = app.ApplicationServices.GetRequiredService<IApplicationLifetime>();
-                applicationLifetime.ApplicationStopping.Register(OnShutdown);
-                MongoDbProcess = Process.Start(new ProcessStartInfo
-                {
-                    FileName = $"C:/Program Files/MongoDB/Server/{MongoDbVersion}/bin/mongod.exe",
-                    Arguments = $"--dbpath {Configuration["LocalMongoDbPath"]}",
-                    CreateNoWindow = false
-                });
+                //// Start a local MongoDb process, and register it to shut down if the application does
+                //var applicationLifetime = app.ApplicationServices.GetRequiredService<IApplicationLifetime>();
+                //applicationLifetime.ApplicationStopping.Register(OnShutdown);
+                //MongoDbProcess = Process.Start(new ProcessStartInfo
+                //{
+                //    FileName = $"C:/Program Files/MongoDB/Server/{MongoDbVersion}/bin/mongod.exe",
+                //    Arguments = $"--dbpath {Configuration["LocalMongoDbPath"]}",
+                //    CreateNoWindow = false
+                //});
 
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
@@ -76,8 +91,7 @@ namespace WorkoutWitness.Web
 
         private void OnShutdown()
         {
-            if (!MongoDbProcess.HasExited)
-                MongoDbProcess.Kill();
+            _hangfireServer.Dispose();
         }
     }
 }
