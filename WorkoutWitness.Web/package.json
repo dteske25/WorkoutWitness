@@ -1,5 +1,8 @@
 {
   "name": "WorkoutWitness_Web",
+  "scripts": {
+    "mongo": "C:/\"Program Files\"/MongoDB/Server/3.4/bin/mongod --dbpath R:/MongoData/"
+  },
   "private": true,
   "version": "0.0.0",
   "dependencies": {
