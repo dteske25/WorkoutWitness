@@ -17,6 +17,7 @@ const history = createBrowserHistory({ basename: baseUrl });
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 const initialState = (window as any).initialReduxState;
+// Add back in the user token if it exists
 const store = configureStore(history, initialState);
 
 function renderApp() {

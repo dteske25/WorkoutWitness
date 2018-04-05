@@ -4,9 +4,13 @@ import * as types from '../actions/types';
 import workoutReducer from './workoutReducer';
 import exerciseReducer from './exerciseReducer';
 import workoutCreatorReducer from './workoutCreatorReducer';
+import userReducer from './userReducer';
 
 
 export const initialState = {
+    user: {
+        'token': '',
+    },
     workouts: [],
     exercises: [],
     workoutCreator: {
@@ -28,7 +32,8 @@ function index(state = initialState, action){
     return {
         workouts: workoutReducer(state.workouts, action),
         exercises: exerciseReducer(state.exercises, action),
-        workoutCreator: workoutCreatorReducer(state.workoutCreator, action)
+        workoutCreator: workoutCreatorReducer(state.workoutCreator, action),
+        user: userReducer(state.user, action)
     };
 }
 

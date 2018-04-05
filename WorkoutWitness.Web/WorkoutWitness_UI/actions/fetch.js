@@ -6,7 +6,9 @@ import * as WorkoutCreatorActions from './workoutCreatorActions';
 
 export function loadWorkouts() {
     return dispatch => {
-        fetch('/api/workout').then(response => response.json()).then(data => {
+        fetch('/api/workout', {
+            credentials: 'same-origin'
+        }).then(response => response.json()).then(data => {
             const formattedData = data.map(w => {
                 w.date = new Date(w.date);
                 return w;
@@ -18,7 +20,9 @@ export function loadWorkouts() {
 
 export function loadExercisesForWorkoutId(id) {
     return dispatch => {
-        fetch(`/api/exercise/${id}`).then(response => response.json()).then(data => {
+        fetch(`/api/exercise/${id}`, {
+            credentials: 'same-origin'
+        }).then(response => response.json()).then(data => {
             dispatch(ExerciseActions.ExerciseFetchAction(data));
         });
     };
@@ -29,6 +33,7 @@ export function postNewWorkout(workoutName, workoutId) {
     return dispatch => {
         fetch(`/api/workout?id=${workoutId}`, {
             method: 'post',
+            credentials: 'same-origin',
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
@@ -43,6 +48,7 @@ export function postExercise(workoutId, exercise) {
     return dispatch => {
         fetch(`/api/exercise/${workoutId}`, {
             method: 'post',
+            credentials: 'same-origin',
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
@@ -60,9 +66,10 @@ export function postExercise(workoutId, exercise) {
 export function deleteWorkout(workoutId) {
     return dispatch => {
         fetch(`/api/workout/${workoutId}`, {
+            credentials: 'same-origin',
             method: 'delete'
         }).then(response => {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 dispatch(loadWorkouts());
             } else {
                 console.error(response);
@@ -74,9 +81,10 @@ export function deleteWorkout(workoutId) {
 export function deleteExercise(exerciseId, workoutId) {
     return dispatch => {
         fetch(`/api/exercise/${exerciseId}`, {
+            credentials: 'same-origin',
             method: 'delete'
         }).then(response => {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 dispatch(loadExercisesForWorkoutId(workoutId));
             } else {
                 console.error(response);

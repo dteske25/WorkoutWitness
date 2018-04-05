@@ -44,6 +44,7 @@ class Workout extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        user: state.index.user,
         workouts: state.index.workouts,
         exercises: state.index.exercises,
         workoutCreator: state.index.workoutCreator

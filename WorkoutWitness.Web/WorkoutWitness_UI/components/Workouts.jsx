@@ -13,8 +13,11 @@ class Workouts extends React.Component {
     }
 
     componentWillMount() {
-        const { dispatch } = this.props;
-        dispatch(loadWorkouts());
+        const { dispatch, user } = this.props;
+        const { token } = user;
+        if (token) {
+            dispatch(loadWorkouts(token));
+        }
     }
 
     onDeleteWorkout(id) {
@@ -38,6 +41,7 @@ class Workouts extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        user: state.index.user,
         workouts: state.index.workouts,
         exercises: state.index.exercises,
         workoutCreator: state.index.workoutCreator,

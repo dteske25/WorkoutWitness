@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using WorkoutWitness.Interfaces;
 using WorkoutWitness.Models;
 
@@ -15,7 +14,7 @@ namespace WorkoutWitness.Accessors
         public readonly IMongoCollection<T> _collection;
         public MongoAccessor(MongoContext context)
         {
-            _collection = context._database.GetCollection<T>(typeof(T).Name.ToString());
+            _collection = context._database.GetCollection<T>(typeof(T).Name);
         }
 
         public Task<IQueryable<T>> AsQueryable()

@@ -35,6 +35,7 @@ class WorkoutCreator extends React.Component {
         if (workoutCreator.currentExercise.name) {
             dispatch(postExercise(workoutCreator.workoutId, workoutCreator.currentExercise));
         }
+        dispatch(WorkoutCreatorActions.WorkoutDone());
         history.push('/');
 
     }
@@ -159,6 +160,7 @@ class WorkoutCreator extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        user: state.index.user,
         workouts: state.index.workouts,
         exercises: state.index.exercises,
         workoutCreator: state.index.workoutCreator
