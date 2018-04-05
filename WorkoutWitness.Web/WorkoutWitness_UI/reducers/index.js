@@ -8,7 +8,9 @@ import userReducer from './userReducer';
 
 
 export const initialState = {
-    user: {},
+    user: {
+        'token': '',
+    },
     workouts: [],
     exercises: [],
     workoutCreator: {

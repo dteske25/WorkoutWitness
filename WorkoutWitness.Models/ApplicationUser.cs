@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WorkoutWitness.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IBaseMongoObject
     {
         public ApplicationUser()
         {
@@ -23,9 +21,9 @@ namespace WorkoutWitness.Models
 
         public static class Fields
         {
-            public const string FirstName = "fn";
-            public const string LastName = "ln";
-            public const string Roles = "r";
+            public const string FirstName = "firstName";
+            public const string LastName = "lastName";
+            public const string Roles = "roles";
         }
     }
 }

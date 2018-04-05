@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorkoutWitness.Interfaces;
 using WorkoutWitness.Web.Params;
-using WorkoutWitness.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WorkoutWitness.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/exercise")]
     public class ExerciseController : Controller
     {
         private readonly IExerciseEngine _exerciseEngine;
@@ -36,18 +34,18 @@ namespace WorkoutWitness.Web.Controllers
         [HttpPost("{workoutId}")]
         public async Task<ActionResult> CreateOrUpdate([FromBody]CreateExerciseParams param, string workoutId)
         {
-            
+
             if (string.IsNullOrWhiteSpace(param.Id))
             {
                 var result = await _exerciseEngine.Add(param.Name, param.Weight, param.Reps, param.Sets, param.Distance, param.Time, workoutId);
                 return Json(result);
-            } 
+            }
             else
             {
                 var result = await _exerciseEngine.Update(param.Id, param.Name, param.Weight, param.Reps, param.Sets, param.Distance, param.Time);
                 return Json(result);
             }
-            
+
         }
 
         [HttpDelete("{exerciseId}")]

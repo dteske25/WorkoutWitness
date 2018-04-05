@@ -35,6 +35,7 @@ class WorkoutCreator extends React.Component {
         if (workoutCreator.currentExercise.name) {
             dispatch(postExercise(workoutCreator.workoutId, workoutCreator.currentExercise));
         }
+        dispatch(WorkoutCreatorActions.WorkoutDone());
         history.push('/');
 
     }

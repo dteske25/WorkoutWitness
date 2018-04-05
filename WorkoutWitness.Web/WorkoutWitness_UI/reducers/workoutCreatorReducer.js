@@ -1,7 +1,10 @@
 ﻿import * as types from '../actions/types';
+import { initialState } from './index';
 
 const workoutCreatorReducer = (state, action) => {
     switch (action.type) {
+        case types.WORKOUTCREATOR_DONE:
+            return initialState.workoutCreator;
         case types.WORKOUTCREATOR_EDIT_WORKOUT_NAME:
             return Object.assign({}, state, {
                 'workoutName': action.value

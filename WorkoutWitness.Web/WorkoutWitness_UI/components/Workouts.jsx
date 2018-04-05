@@ -13,8 +13,11 @@ class Workouts extends React.Component {
     }
 
     componentWillMount() {
-        const { dispatch } = this.props;
-        dispatch(loadWorkouts());
+        const { dispatch, user } = this.props;
+        const { token } = user;
+        if (token) {
+            dispatch(loadWorkouts(token));
+        }
     }
 
     onDeleteWorkout(id) {

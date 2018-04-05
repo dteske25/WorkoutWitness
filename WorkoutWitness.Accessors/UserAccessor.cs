@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using MongoDB.Driver;
 using WorkoutWitness.Interfaces;
 using WorkoutWitness.Models;
-using System.Linq;
-using MongoDB.Driver;
 
 namespace WorkoutWitness.Accessors
 {
-    public class UserAccessor : IUserAccessor
+    public class UserAccessor : MongoAccessor<ApplicationUser>, IUserAccessor
     {
-        private readonly IMongoCollection<ApplicationUser> _collection;
-        public UserAccessor(MongoContext context)
-        {
-            _collection = context._database.GetCollection<ApplicationUser>(typeof(ApplicationUser).Name);
-        }
+        public UserAccessor(MongoContext context) : base(context) { }
 
         public async Task AddToRoleAsync(ApplicationUser user, string roleName, CancellationToken cancellationToken)
         {

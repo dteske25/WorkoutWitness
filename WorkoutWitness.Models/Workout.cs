@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace WorkoutWitness.Models
@@ -11,15 +12,16 @@ namespace WorkoutWitness.Models
         [BsonElement(Fields.Date)]
         public DateTime Date { get; set; }
 
+        [BsonRepresentation(BsonType.ObjectId)]
         [BsonElement(Fields.UserId)]
         public string UserId { get; set; }
 
 
         public static class Fields
         {
-            public const string Name = "n";
-            public const string Date = "d";
-            public const string UserId = "uid";
+            public const string Name = "name";
+            public const string Date = "date";
+            public const string UserId = "userId";
         }
 
 

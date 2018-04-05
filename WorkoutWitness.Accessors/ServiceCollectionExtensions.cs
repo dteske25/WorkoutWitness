@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using MongoDB.Driver;
 using WorkoutWitness.Accessors;
 using WorkoutWitness.Interfaces;
 using WorkoutWitness.Models;
@@ -26,9 +24,23 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddRoleStore<RoleAccessor>()
                 .AddUserStore<UserAccessor>()
+                .AddClaimsPrincipalFactory<ApplicationClaimsPrincipalFactory>()
                 .AddDefaultTokenProviders();
 
             return services;
+        }
+
+        public static void CreateIndexes(MongoContext context)
+        {
+            // Add indexes here
+            context.AddIndex(Builders<Exercise>.IndexKeys.Text(e => e.Name));
+            context.AddIndex(Builders<Workout>.IndexKeys.Text(w => w.Name));
+        }
+
+        public static MongoContext AddIndex<T>(this MongoContext context, IndexKeysDefinition<T> indexDefinition, CreateIndexOptions options = null)
+        {
+            context._database.GetCollection<T>(nameof(T)).Indexes.CreateOne(indexDefinition, options);
+            return context;
         }
     }
 }

@@ -8,6 +8,11 @@ export function CurrentExerciseValueChange(label, value) {
     };
 }
 
+export function WorkoutDone() {
+    return {
+        type: types.WORKOUTCREATOR_DONE
+    };
+}
 
 export function WorkoutNameChange(value) {
     return {

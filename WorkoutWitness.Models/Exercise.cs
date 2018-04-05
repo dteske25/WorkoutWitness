@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace WorkoutWitness.Models
 {
-    public class Exercise: BaseMongoObject
+    public class Exercise : BaseMongoObject
     {
         [BsonElement(Fields.Name)]
         public string Name { get; set; }
@@ -25,18 +25,18 @@ namespace WorkoutWitness.Models
         public TimeSpan? Time { get; set; }
 
         [BsonElement(Fields.WorkoutId)]
-        [BsonRepresentation(BsonType.String)]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string WorkoutId { get; set; }
 
         public static class Fields
         {
-            public const string Name = "n";
-            public const string Weight = "w";
-            public const string Reps = "r";
-            public const string Sets = "s";
-            public const string Distance = "d";
-            public const string Time = "t";
-            public const string WorkoutId = "wo_id";
+            public const string Name = "name";
+            public const string Weight = "weight";
+            public const string Reps = "reps";
+            public const string Sets = "sets";
+            public const string Distance = "distance";
+            public const string Time = "time";
+            public const string WorkoutId = "workoutId";
         }
     }
 }

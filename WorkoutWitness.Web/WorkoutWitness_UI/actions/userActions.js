@@ -25,12 +25,11 @@ export function logInUser(username, password) {
     return dispatch => {
         fetch('/api/auth/login', {
             method: 'post',
+            credentials: 'same-origin',
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify({ username, password })
-        }).then(response => response.json()).then(data => {
-            console.log(data);
         });
     };
 }
@@ -39,18 +38,25 @@ export function createUser(username, email, firstName, lastName, password) {
     return dispatch => {
         fetch('/api/auth/register', {
             method: 'post',
+            credentials: 'same-origin',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             }),
             body: JSON.stringify({
                 username,
-                email,
+                "EmailAddress": email,
                 firstName,
                 lastName,
                 password
             })
-        }).then(response => response.json()).then(data => {
-            console.log(data);
         });
     };
+}
+
+export function logoutUser(token) {
+    return dispatch => {
+        fetch('/api/auth/logout', {
+            method: 'post',
+        });
+    }
 }

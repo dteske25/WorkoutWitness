@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WorkoutWitness.Models
 {
-    public class ApplicationRole : IdentityRole
+    public class ApplicationRole : IdentityRole, IBaseMongoObject
     {
         public ApplicationRole()
         {
