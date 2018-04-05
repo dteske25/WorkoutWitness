@@ -4,7 +4,7 @@ import * as WorkoutActions from './workoutActions';
 import * as ExerciseActions from './exerciseActions';
 import * as WorkoutCreatorActions from './workoutCreatorActions';
 
-export function loadWorkouts(token) {
+export function loadWorkouts() {
     return dispatch => {
         fetch('/api/workout', {
             credentials: 'same-origin'

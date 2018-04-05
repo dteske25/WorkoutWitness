@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static MongoContext AddIndex<T>(this MongoContext context, IndexKeysDefinition<T> indexDefinition, CreateIndexOptions options = null)
         {
-            context._database.GetCollection<T>(nameof(T)).Indexes.CreateOne(indexDefinition, options);
+            context._database.GetCollection<T>(typeof(T).Name).Indexes.CreateOne(indexDefinition, options);
             return context;
         }
     }

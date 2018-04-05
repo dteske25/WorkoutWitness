@@ -14,13 +14,10 @@ let routes = RoutesModule.routes;
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href')!;
 const history = createBrowserHistory({ basename: baseUrl });
-const userToken = localStorage.getItem("token");
+
 // Get the application-wide store instance, prepopulating with state from the server where available.
 const initialState = (window as any).initialReduxState;
 // Add back in the user token if it exists
-if (userToken) {
-    initialState.index.user.token = userToken;
-}
 const store = configureStore(history, initialState);
 
 function renderApp() {

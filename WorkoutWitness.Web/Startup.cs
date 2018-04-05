@@ -26,14 +26,13 @@ namespace WorkoutWitness.Web
             services.AddMvc();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = "/Account/Login/";
+                options.LoginPath = "/login/";
                 options.Events.OnRedirectToLogin = (context) =>
                 {
                     context.Response.StatusCode = 401;
                     return Task.CompletedTask;
                 };
             });
-            //services.AddAuth();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +56,7 @@ namespace WorkoutWitness.Web
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-            //app.UseCookiePolicy(new CookiePolicyOptions());
+            
             app.UseAuthentication();
             app.UseStaticFiles();
 
