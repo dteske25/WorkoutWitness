@@ -1,4 +1,0 @@
-{
-  "presets": [ "react", "env" ],
-  "plugins": [ "transform-es2015-template-literals", "transform-object-rest-spread" ]
-}
