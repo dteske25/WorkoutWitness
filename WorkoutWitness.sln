@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutWitness.Models", "WorkoutWitness.Models\WorkoutWitness.Models.csproj", "{FF8C348A-EEF6-4CC0-92EE-322EE7392F49}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutWitness.Accessors", "WorkoutWitness.Accessors\WorkoutWitness.Accessors.csproj", "{2B547D75-96C7-4B61-AFB4-A2CA6684D9CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutWitness.Engines", "WorkoutWitness.Engines\WorkoutWitness.Engines.csproj", "{F8516BDA-DB40-4540-A11F-50078B58420C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutWitness.Helpers", "WorkoutWitness.Helpers\WorkoutWitness.Helpers.csproj", "{327615E5-2B2E-418B-B951-DED08E75F32C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutWitness.Web", "WorkoutWitness.Web\WorkoutWitness.Web.csproj", "{BA0FF7D7-5BA7-43AD-8E88-E1CE216C06A9}"
 EndProject
@@ -73,18 +71,6 @@ Global
 		{F8516BDA-DB40-4540-A11F-50078B58420C}.Release|x64.Build.0 = Release|Any CPU
 		{F8516BDA-DB40-4540-A11F-50078B58420C}.Release|x86.ActiveCfg = Release|Any CPU
 		{F8516BDA-DB40-4540-A11F-50078B58420C}.Release|x86.Build.0 = Release|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Debug|x64.Build.0 = Debug|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Debug|x86.Build.0 = Debug|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Release|x64.ActiveCfg = Release|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Release|x64.Build.0 = Release|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Release|x86.ActiveCfg = Release|Any CPU
-		{327615E5-2B2E-418B-B951-DED08E75F32C}.Release|x86.Build.0 = Release|Any CPU
 		{BA0FF7D7-5BA7-43AD-8E88-E1CE216C06A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA0FF7D7-5BA7-43AD-8E88-E1CE216C06A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA0FF7D7-5BA7-43AD-8E88-E1CE216C06A9}.Debug|x64.ActiveCfg = Debug|Any CPU
