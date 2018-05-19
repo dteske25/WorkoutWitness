@@ -36,7 +36,7 @@ namespace WorkoutWitness.Web.Controllers
 
             }
             await _signInManager.SignInAsync(user, false);
-            return Ok();
+            return Json(user);
         }
 
         [HttpPost("login")]
@@ -48,7 +48,8 @@ namespace WorkoutWitness.Web.Controllers
             {
                 return Unauthorized();
             }
-            return Ok();
+            var user = await _userManager.FindByNameAsync(loginUserParams.Username);
+            return Json(user);
         }
 
         [Authorize]

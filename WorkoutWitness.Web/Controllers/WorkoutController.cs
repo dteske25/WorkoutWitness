@@ -13,7 +13,7 @@ using static WorkoutWitness.Accessors.ApplicationClaimsPrincipalFactory;
 namespace WorkoutWitness.Web.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/workout")]
     public class WorkoutController : Controller
     {
         private readonly IWorkoutEngine _workoutEngine;
