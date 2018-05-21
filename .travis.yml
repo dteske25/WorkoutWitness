@@ -16,11 +16,3 @@ before_install:
   - sudo chmod 755 build.sh
 script:
   - ./build.sh
-deploy:
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
-    bucket: "workout-witness"
-    region: us-west-2
-    skip_cleanup: true
-    local_dir: WorkoutWitness.Web/ClientApp/build
