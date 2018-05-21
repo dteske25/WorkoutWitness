@@ -1,6 +1,7 @@
 body {
-    padding-top: 4em;
     font-family: 'Roboto';
+    margin: 0px;
+    padding: 0px;
 }
 
 a, button {

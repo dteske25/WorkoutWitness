@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Redirect } from 'react-router-dom'
+import mapDispatchToProps from '../actions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { Register } from '../services/authService';
 
-export default class RegisterView extends Component {
+export class RegisterView extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -25,15 +27,19 @@ export default class RegisterView extends Component {
 
     handleSubmit = () => {
         const { firstName, lastName, username, email, password } = this.state;
-        Register({firstName, lastName, username, emailAddress:email, password}).then(response => {
-            console.log(response);
-        });
+        this.props.userActions.Register({firstName, lastName, username, emailAddress:email, password});
     }
 
     render() {
         const { firstName, lastName, username, email, password, confirmPassword } = this.state;
         const passwordsMatch = password === confirmPassword;
         const canSubmit = !!firstName && !!lastName && !!username & !!email && !!password & passwordsMatch;
+
+        const { user } = this.props;
+        if (user.id) {
+            return <Redirect to={'/'} />;
+        }
+
         return (<Grid container>
             <Grid item xs={12}>
                 <TextField
@@ -111,3 +117,14 @@ export default class RegisterView extends Component {
         </Grid>);
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    };
+  }
+  
+  export default withRouter(connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(RegisterView));

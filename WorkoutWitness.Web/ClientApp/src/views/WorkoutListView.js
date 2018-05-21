@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+import mapDispatchToProps from '../actions';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
-import { LoadWorkouts } from '../services/workoutService';
 
-export default class WorkoutListView extends Component {
+export class WorkoutListView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +15,8 @@ export default class WorkoutListView extends Component {
     }
 
     componentWillMount() {
-        LoadWorkouts().then(response => response.json()).then(data => console.log(data));
+        const { workoutActions } = this.props;
+        workoutActions.LoadWorkouts();
     }
 
     render() {
@@ -27,3 +30,14 @@ export default class WorkoutListView extends Component {
         </div>);
     }
 }
+
+function mapStateToProps(state) {
+    return {
+      workouts: state.workouts
+    };
+  }
+  
+  export default withRouter(connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(WorkoutListView));
