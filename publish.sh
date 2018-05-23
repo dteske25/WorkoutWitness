@@ -10,7 +10,7 @@ dotnet build
 
 sudo service workout-witness stop
 
-sudo dotnet publish WorkoutWitness.Web -c Release -o /var/aspnetcore/workout-witness
+dotnet publish -c Release -o /var/aspnetcore/workout-witness
 
 sudo service workout-witness start
 
