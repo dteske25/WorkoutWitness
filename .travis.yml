@@ -1,6 +1,6 @@
 sudo: required
 language: csharp
-dotnet: 2.0.0
+dotnet: 2.1.0
 mono: none
 dist: trusty
 env: 
@@ -13,6 +13,7 @@ branches:
 before_install:
   - sudo apt-get update
   - sudo apt-get install nodejs
+  - sudo apt-get install npm
   - sudo chmod 755 build.sh
 script:
   - ./build.sh

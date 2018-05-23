@@ -6,7 +6,7 @@ git pull
 
 sudo service workout-witness stop
 
-dotnet publish WorkoutWitness.Web -c Release -o /var/aspnetcore/workout-witness
+sudo dotnet publish WorkoutWitness.Web -v q -c Release -o /var/aspnetcore/workout-witness
 
 sudo service workout-witness start
 
