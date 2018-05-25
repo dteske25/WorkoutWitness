@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import mapDispatchToProps from '../actions';
+import ExerciseCard from '../components/ExerciseCard';
+
 import TextField from '@material-ui/core/TextField';
 
 export class WorkoutCreatorView extends Component {
@@ -21,7 +23,14 @@ export class WorkoutCreatorView extends Component {
 
     render() {
         const { name, date } = this.state;
-
+        const exercises = [
+            <ExerciseCard key={1} exercise={{id:1, name: "One", weight: 100, reps: 10, sets: 3}} />,
+            <ExerciseCard key={2} exercise={{id:2, name: "Two", weight: 105, reps: 10, sets: 3}} />,
+            <ExerciseCard key={3} exercise={{id:3, name: "Three", weight: 110, reps: 10, sets: 3}} />,
+            <ExerciseCard key={4} exercise={{id:4, name: "Four", weight: 115, reps: 10, sets: 3}} />,
+            <ExerciseCard key={5} exercise={{id:5, name: "Five", weight: 120, reps: 10, sets: 3}} />,
+            <ExerciseCard key={6} exercise={{id:6, name: "Six", weight: 125, reps: 10, sets: 3}} />
+        ];
 
         return (<div>
             WorkoutCreatorView
@@ -40,6 +49,9 @@ export class WorkoutCreatorView extends Component {
                 value={this.state.date}
                 onChange={this.handleChange("date")}
             />
+            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+            {exercises}
+            </div>
         </div>);
     }
 }
