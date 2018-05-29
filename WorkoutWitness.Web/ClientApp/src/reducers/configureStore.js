@@ -8,6 +8,5 @@ export default function configureStore() {
     rootReducer,
     applyMiddleware(logger),
     applyMiddleware(thunk),
-    
   );
 }

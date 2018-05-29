@@ -9,7 +9,7 @@ namespace WorkoutWitness.Interfaces
     {
         Task<Workout> Add(string name, DateTime date, string userId);
         Task Remove(string workoutId);
-        Task<Workout> Rename(string workoutName, string workoutId);
+        Task<Workout> Update(string workoutName, string workoutId, DateTime date);
         Task<IEnumerable<Workout>> GetAllWorkouts();
         Task<Workout> GetWorkoutById(string workoutId);
         Task<IEnumerable<Workout>> GetWorkoutsByUserId(string userId);

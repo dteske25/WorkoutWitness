@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WorkoutWitness.Interfaces;
 using WorkoutWitness.Models;
@@ -24,7 +23,7 @@ namespace WorkoutWitness.Engines
             {
                 Name = name,
                 Date = date,
-                UserId = userId,                
+                UserId = userId,
             });
         }
 
@@ -49,10 +48,11 @@ namespace WorkoutWitness.Engines
             await _workoutAccessor.Delete(w => w.Id == workoutId);
         }
 
-        public async Task<Workout> Rename(string workoutName, string workoutId)
+        public async Task<Workout> Update(string workoutName, string workoutId, DateTime date)
         {
             var workout = await _workoutAccessor.Single(w => w.Id == workoutId);
             workout.Name = workoutName;
+            workout.Date = date;
             await _workoutAccessor.Update(workout);
             return workout;
         }

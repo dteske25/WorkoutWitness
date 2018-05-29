@@ -4,7 +4,7 @@ import Layout from './components/Layout';
 import WelcomeView from './views/WelcomeView';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
-import WorkoutCreatorView from './views/WorkoutCreatorView';
+import WorkoutEditorView from './views/WorkoutEditorView';
 import WorkoutListView from './views/WorkoutListView';
 import WorkoutView from './views/WorkoutView';
 import ProfileView from './views/ProfileView';
@@ -50,7 +50,7 @@ export default class App extends Component {
             <Route exact path="/" component={WelcomeView} />
             <Route path="/login" component={LoginView} />
             <Route path="/register" component={RegisterView} />
-            <Route path="/create" component={WorkoutCreatorView} />
+            <Route path="/create" component={WorkoutEditorView} />
             <Route path="/list" component={WorkoutListView} />
             <Route path="/list/:id" component={WorkoutView} />
             <Route path="/profile" component={ProfileView} />

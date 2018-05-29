@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WorkoutWitness.Interfaces;
 using WorkoutWitness.Models;
+using WorkoutWitness.Web.Params;
 using static WorkoutWitness.Accessors.ApplicationClaimsPrincipalFactory;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -42,16 +42,16 @@ namespace WorkoutWitness.Web.Controllers
         }
 
         [HttpPost("")]
-        public async Task<JsonResult> CreateWorkout([FromBody]string workoutName, [FromQuery]string workoutId)
+        public async Task<JsonResult> CreateWorkout([FromBody]CreateOrUpdateWorkoutParams workoutParams)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == CustomClaimTypes.UserId);
-            if (!string.IsNullOrWhiteSpace(workoutId))
+            if (!string.IsNullOrWhiteSpace(workoutParams.WorkoutId))
             {
-                var renamed = await _workoutEngine.Rename(workoutName, workoutId);
+                var renamed = await _workoutEngine.Update(workoutParams.WorkoutName, workoutParams.WorkoutId, workoutParams.WorkoutDate);
                 return Json(renamed);
 
             }
-            var result = await _workoutEngine.Add(workoutName, DateTime.UtcNow, userId.Value);
+            var result = await _workoutEngine.Add(workoutParams.WorkoutName, workoutParams.WorkoutDate, userId.Value);
             return Json(result);
         }
 

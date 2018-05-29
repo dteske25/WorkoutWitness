@@ -7,6 +7,7 @@ export default function mapDispatchToProps(dispatch) {
   return {
       userActions: bindActionCreators(userActions, dispatch),
       workoutActions: bindActionCreators(workoutActions, dispatch),
-      workoutCreatorActions: bindActionCreators(workoutCreatorActions, dispatch)
+      workoutCreatorActions: bindActionCreators(workoutCreatorActions, dispatch),
+      dispatch: dispatch
   };
 }

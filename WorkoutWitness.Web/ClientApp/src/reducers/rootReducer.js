@@ -1,6 +1,7 @@
 import userReducer from './userReducer';
 import workoutReducer from './workoutReducer';
 import workoutCreatorReducer from './workoutCreatorReducer';
+import moment from 'moment';
 
 const initialState = {
   user: {
@@ -13,7 +14,11 @@ const initialState = {
     list: []
   },
   workoutCreator: {
-    
+    date: moment().format('YYYY-MM-DD'),
+    workoutName: '',
+    workoutId: null,
+    exercises: [],
+    activeIndex: 0,
   }
 }
 
