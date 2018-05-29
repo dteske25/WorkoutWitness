@@ -4,14 +4,14 @@ export default function workoutReducer(state, action) {
   switch (action.type) {
     case types.requestWorkouts:
       return {
+        ...state,
         loading: true,
-        ...state
       };
     case types.receiveWorkouts:
       return {
+        ...state,
         loading: false,
         list: action.data,
-        ...state
       };
     default:
       return state;

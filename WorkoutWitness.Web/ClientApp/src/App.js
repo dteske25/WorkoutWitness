@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Layout from './components/Layout';
 import WelcomeView from './views/WelcomeView';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
-import WorkoutEditorView from './views/WorkoutEditorView';
+import WorkoutCreatorView from './views/WorkoutCreatorView';
 import WorkoutListView from './views/WorkoutListView';
 import WorkoutView from './views/WorkoutView';
 import ProfileView from './views/ProfileView';
@@ -27,7 +27,7 @@ const theme = createMuiTheme({
     overrides: {
       MuiButton: {
         root: {
-          color: '#fff', 
+          color: '#fff',
         },
       },
     },
@@ -47,13 +47,13 @@ export default class App extends Component {
       <JssProvider jss={jss} generateClassName={generateClassName}>
         <MuiThemeProvider theme={theme}>
           <Layout>
-            <Route exact path="/" component={WelcomeView} />
-            <Route path="/login" component={LoginView} />
-            <Route path="/register" component={RegisterView} />
-            <Route path="/create" component={WorkoutEditorView} />
-            <Route path="/list" component={WorkoutListView} />
-            <Route path="/list/:id" component={WorkoutView} />
-            <Route path="/profile" component={ProfileView} />
+              <Route exact path="/" component={WelcomeView} />
+              <Route path="/login" component={LoginView} />
+              <Route path="/register" component={RegisterView} />
+              <Route path="/create" component={WorkoutCreatorView} />
+              <Route exact path="/list" component={WorkoutListView} />
+              <Route path="/list/:id" component={WorkoutView} />
+              <Route path="/profile" component={ProfileView} />
           </Layout>
         </MuiThemeProvider>
       </JssProvider>

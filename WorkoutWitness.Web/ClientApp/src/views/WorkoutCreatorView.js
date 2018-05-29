@@ -1,142 +1,194 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import mapDispatchToProps from '../actions';
 import ExerciseEditorComponent from '../components/ExerciseEditorComponent';
-
-import { TextField, Button, Grid } from '@material-ui/core';
+import { TextField, Grid, Button, Divider } from '@material-ui/core';
+import { KeyboardArrowLeft, KeyboardArrowRight, Save } from '@material-ui/icons';
 
 export class WorkoutCreatorView extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            weight: '',
-            reps: '',
-            sets: '',
-            distance: '',
-            time: '',
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeIndex: 0,
+      currentExercise: {
+        id: null,
+        name: null,
+        weight: null,
+        reps: null,
+        sets: null,
+        distance: null,
+        time: null,
+      }
     }
+  }
 
-    handleNameChange = (event) => {
-        const { workoutCreatorActions } = this.props;
-        workoutCreatorActions.editWorkoutAction({ name: 'workoutName', value: event.target.value });
+  handleExerciseDataChange = (event, name) => {
+    const { currentExercise } = this.state;
+    currentExercise[name] = event.target.value;
+    this.setState({ currentExercise });
+  }
+
+  handleExerciseDataSave = () => {
+    const { currentExercise } = this.state;
+    const { workoutCreator, workoutCreatorActions } = this.props;
+    workoutCreatorActions.saveExercise(workoutCreator.workoutId, currentExercise);
+  }
+
+  handleWorkoutDataChange = (event, name) => {
+    const { workoutCreatorActions } = this.props;
+    workoutCreatorActions.editWorkoutAction({
+      name,
+      value: event.target.value
+    });
+  }
+
+  handleWorkoutDataSave = () => {
+    const { workoutCreator, workoutCreatorActions } = this.props;
+    workoutCreatorActions.saveWorkout(workoutCreator.workoutName, workoutCreator.date, workoutCreator.workoutId);
+  }
+
+  handleNextButton = () => {
+    if (this.isValidExercise()) {
+      this.handleExerciseDataSave();
     }
+    const { activeIndex } = this.state;
+    this.loadExerciseIntoState(activeIndex + 1);
+  }
 
-    handleDateChange = (event) => {
-        const { workoutCreatorActions } = this.props;
-        workoutCreatorActions.editWorkoutAction({ name: 'date', value: event.target.value });
+  handleBackButton = () => {
+    if (this.isValidExercise()) {
+      this.handleExerciseDataSave();
     }
+    const { activeIndex } = this.state;
+    this.loadExerciseIntoState(activeIndex - 1);
+  }
 
-    handleSaveWorkout = () => {
-        const { workoutCreatorActions, workoutCreator } = this.props;
-        workoutCreatorActions.saveWorkout(workoutCreator.workoutName, workoutCreator.date, workoutCreator.id);
+  handleDoneButton = () => {
+    const { workoutCreatorActions, history } = this.props;
+    if (this.isValidExercise()) {
+      this.handleExerciseDataSave();
     }
+    workoutCreatorActions.resetWorkoutCreatorAction();
+    history.push("/list");
+  }
 
-    handleAddExercise = (event, name) => {
-        const { workoutCreatorActions, workoutCreator } = this.props;
-        this.setState({
-            [name]: event.target.value
-        });
+  loadExerciseIntoState = (nextIndex) => {
+    const { exercises } = this.props.workoutCreator;
+    let currentExercise = {
+      id: null,
+      name: null,
+      weight: null,
+      reps: null,
+      sets: null,
+      distance: null,
+      time: null,
+    };
+    if (exercises[nextIndex]) {
+      currentExercise = exercises[nextIndex];
     }
+    this.setState({
+      currentExercise,
+      activeIndex: nextIndex
+    });
+  }
 
-    handleAddExerciseButton = () => {
-        const { name, weight, reps, sets, distance, time } = this.state;
-        const { workoutCreatorActions, workoutCreator } = this.props;
-        workoutCreatorActions.addExercise(workoutCreator.workoutId, {
-            name,
-            weight,
-            reps,
-            sets,
-            distance,
-            time
-        });
-        this.setState({
-            name: '',
-            weight: '',
-            reps: '',
-            sets: '',
-            distance: '',
-            time: '',
-        });
-    }
+  isValidExercise = () => {
+    const { name, weight, reps, sets, distance, time } = this.state.currentExercise;
+    return name && (weight || reps || sets || distance || time);
+  }
 
-    handleEditExercise = (event, name, id) => {
-        const { workoutCreatorActions } = this.props;
-        workoutCreatorActions.editExerciseAction({ id, name, value: event.target.value });
-    }
+  render() {
+    return (<Grid container direction="column" alignItems="center">
+      <Grid item xs>{this.renderWorkoutControls()}</Grid>
+      <Grid item xs>{this.renderExerciseControls()}</Grid>
+    </Grid>)
+  }
 
+  renderWorkoutControls = () => {
+    const { workoutName, date, workoutId, exercises } = this.props.workoutCreator;
+    const { id, name, weight, reps, sets, distance, time } = this.state.currentExercise;
+    const dateControl = (<Grid item xs>
+      <TextField
+        label="Workout Date"
+        type="date"
+        value={date}
+        fullWidth
+        onChange={(e) => this.handleWorkoutDataChange(e, "date")}
+        onBlur={(e) => this.handleWorkoutDataSave()}
+      />
+    </Grid>);
+    const nameControl = (<Grid item xs>
+      <TextField
+        label="Workout Name"
+        value={workoutName}
+        fullWidth
+        onChange={(e) => this.handleWorkoutDataChange(e, "workoutName")}
+        onBlur={(e) => this.handleWorkoutDataSave()}
+      />
+    </Grid>);
+    return (<Grid container>
+      {dateControl}
+      {nameControl}
+    </Grid>);
+  }
 
-    render() {
-        const { workoutName, date, id, exercises } = this.props.workoutCreator;
-        const renderedEditors = exercises.map(exercise => {
-            return (
-                <Grid item xs={12} key={exercise.id}>
-                    <ExerciseEditorComponent
-                        id={exercise.id}
-                        name={exercise.name}
-                        weight={exercise.weight}
-                        reps={exercise.reps}
-                        sets={exercise.sets}
-                        distance={exercise.distance}
-                        time={exercise.time}
-                        onChange={this.handleEditExercise}
-                    />
-                    <Button>Delete</Button>
-                </Grid>);
-        });
-
-        return (<Grid container spacing={16}>
-            <Grid item>
-                <TextField
-                    label="Workout Name"
-                    required
-                    value={workoutName}
-                    onBlur={this.handleSaveWorkout}
-                    onChange={this.handleNameChange}
-                    margin="normal"
-                    fullWidth
-                />
-            </Grid>
-            <Grid item>
-                <TextField
-                    label="Workout Date"
-                    type="date"
-                    required
-                    value={date}
-                    onChange={this.handleDateChange}
-                    onBlur={this.handleSaveWorkout}
-                    margin="normal"
-                    fullWidth
-                />
-            </Grid>
-            {renderedEditors}
-            <Grid item xs={12}>
-                <ExerciseEditorComponent
-                    name={this.state.name}
-                    weight={this.state.weight}
-                    reps={this.state.reps}
-                    sets={this.state.sets}
-                    distance={this.state.distance}
-                    time={this.state.time}
-                    onChange={this.handleAddExercise}
-                />
-                <Button onClick={this.handleAddExerciseButton}>
-                    Add Exercise
-                </Button>
-            </Grid>
-        </Grid>);
-    }
+  renderExerciseControls = () => {
+    const { workoutName, date, workoutId, exercises } = this.props.workoutCreator;
+    const { id, name, weight, reps, sets, distance, time } = this.state.currentExercise;
+    const exerciseEditor = (<ExerciseEditorComponent
+      id={id}
+      name={name}
+      weight={weight}
+      reps={reps}
+      sets={sets}
+      distance={distance}
+      time={time}
+      onChange={this.handleExerciseDataChange.bind(this)}
+    />);
+    const buttonLeftDisabled = this.state.activeIndex <= 0;
+    const buttonRightDisabled = this.state.activeIndex > exercises.length || !this.isValidExercise();
+    return (<Grid container direction="column" alignItems="center">
+      <Grid item xs>
+        {exerciseEditor}
+      </Grid>
+      <Grid item xs>
+        <Grid container>
+          <Grid item xs>
+            <Button
+              disabled={buttonLeftDisabled}
+              onClick={this.handleBackButton.bind(this)}>
+              <KeyboardArrowLeft />
+              Prev
+            </Button>
+          </Grid>
+          <Grid item xs>
+            <Button
+              onClick={this.handleDoneButton.bind(this)}>
+              Done
+            </Button>
+          </Grid>
+          <Grid item xs>
+            <Button
+              disabled={buttonRightDisabled}
+              onClick={this.handleNextButton.bind(this)}>
+              Next
+              <KeyboardArrowRight />
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>);
+  }
 }
 
 function mapStateToProps(state) {
-    return {
-        workoutCreator: state.workoutCreator
-    };
+  return {
+    workoutCreator: state.workoutCreator
+  };
 }
 
 export default withRouter(connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(WorkoutCreatorView));

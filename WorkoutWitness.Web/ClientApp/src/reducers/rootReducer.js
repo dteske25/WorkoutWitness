@@ -1,6 +1,7 @@
 import userReducer from './userReducer';
 import workoutReducer from './workoutReducer';
 import workoutCreatorReducer from './workoutCreatorReducer';
+import workoutViewReducer from './workoutViewReducer';
 import moment from 'moment';
 
 const initialState = {
@@ -18,7 +19,10 @@ const initialState = {
     workoutName: '',
     workoutId: null,
     exercises: [],
-    activeIndex: 0,
+  },
+  workoutView: {
+    loading: false,
+    exercises: []
   }
 }
 
@@ -27,6 +31,7 @@ function rootReducer(state = initialState, action) {
     user: userReducer(state.user, action),
     workouts: workoutReducer(state.workouts, action),
     workoutCreator: workoutCreatorReducer(state.workoutCreator, action),
+    workoutView: workoutViewReducer(state.workoutView, action)
   }
 }
 

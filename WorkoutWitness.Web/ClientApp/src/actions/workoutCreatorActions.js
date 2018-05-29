@@ -2,6 +2,10 @@ import * as helpers from './fetchHelpers';
 import * as types from './actionTypes';
 import moment from 'moment';
 
+export function resetWorkoutCreatorAction() {
+  return { type: types.resetWorkoutCreator }
+};
+
 export function editWorkoutAction(data) {
   return { type: types.editWorkout, data }
 };
@@ -14,12 +18,12 @@ export function saveExerciseAction(data) {
   return { type: types.saveExercise, data }
 };
 
-export function removeExerciseAction(data) {
-  return { type: types.removeExercise, data }
-};
-
 export function editExerciseAction(data) {
   return { type: types.editExercise, data }
+};
+
+export function removeExerciseAction(data) {
+  return { type: types.removeExercise, data }
 };
 
 export function saveWorkout(name, date, id) {
@@ -33,6 +37,7 @@ export function saveWorkout(name, date, id) {
 }
 
 export function saveExercise(workoutId, exerciseData) {
+  console.log(exerciseData);
   return dispatch => {
     return helpers.Post(`/api/exercise/${workoutId}`, exerciseData)
     .then(response => response.json())

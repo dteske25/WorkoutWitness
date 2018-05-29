@@ -9,23 +9,15 @@ export default class ExerciseEditorComponent extends Component {
     super(props);
   }
 
-  handleChange = (event, name) => {
-    const { onChange, id } = this.props;
-    if (id) {
-      onChange(event, name, id);
-    } else {
-      onChange(event, name);
-    }
-  }
-
   render() {
-    const { name, weight, reps, sets, distance, time, onChange } = this.props;
+    const { name, weight, reps, sets, distance, time, onChange, onBlur } = this.props;
     return (<Grid container>
       <Grid item xs={12}>
         <TextField
           label="Name"
           value={this.props.name || ''}
-          onChange={(e) => this.handleChange(e, "name")}
+          onChange={(e) => onChange(e, 'name')}
+          onBlur={onBlur}
           fullWidth
         />
       </Grid>
@@ -33,7 +25,8 @@ export default class ExerciseEditorComponent extends Component {
         <TextField
           label="Weight"
           value={this.props.weight || ''}
-          onChange={(e) => this.handleChange(e, "weight")}
+          onChange={(e) => onChange(e, "weight")}
+          onBlur={onBlur}
           fullWidth
         />
       </Grid>
@@ -41,7 +34,8 @@ export default class ExerciseEditorComponent extends Component {
         <TextField
           label="Reps"
           value={this.props.reps || ''}
-          onChange={(e) => this.handleChange(e, "reps")}
+          onChange={(e) => onChange(e, "reps")}
+          onBlur={onBlur}
           fullWidth
         />
       </Grid>
@@ -49,7 +43,8 @@ export default class ExerciseEditorComponent extends Component {
         <TextField
           label="Sets"
           value={this.props.sets || ''}
-          onChange={(e) => this.handleChange(e, "sets")}
+          onChange={(e) => onChange(e, "sets")}
+          onBlur={onBlur}
           fullWidth
         />
       </Grid>
@@ -57,7 +52,8 @@ export default class ExerciseEditorComponent extends Component {
         <TextField
           label="Distance"
           value={this.props.distance || ''}
-          onChange={(e) => this.handleChange(e, "distance")}
+          onChange={(e) => onChange(e, "distance")}
+          onBlur={onBlur}
           fullWidth
         />
       </Grid>
@@ -65,7 +61,8 @@ export default class ExerciseEditorComponent extends Component {
         <TextField
           label="Time"
           value={this.props.time || ''}
-          onChange={(e) => this.handleChange(e, "time")}
+          onChange={(e) => onChange(e, "time")}
+          onBlur={onBlur}
           fullWidth
         />
       </Grid>

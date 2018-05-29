@@ -1,9 +1,9 @@
 import * as types from '../actions/actionTypes';
+import moment from 'moment';
 
 export default function workoutCreatorReducer(state, action) {
   switch (action.type) {
     case types.editWorkout:
-      console.log({ state, action });
       return {
         ...state,
         [action.data.name]: action.data.value,
@@ -14,18 +14,30 @@ export default function workoutCreatorReducer(state, action) {
         workoutId: action.data.id
       }
     case types.saveExercise:
+      const ids = state.exercises.map(e => e.id);
+      if (ids.indexOf(action.data.id) > -1) {
+        return {
+          ...state,
+          exercises: state.exercises.map(e => {
+            if (e.id === action.data.id) {
+              return action.data;
+            }
+            return e;
+          })
+        };
+      } else {
+        return {
+          ...state,
+          exercises: state.exercises.concat([action.data])
+        }
+      }
+    case types.resetWorkoutCreator:
       return {
-        ...state,
-        exercises: state.exercises.map(e => {
-          if (e.id === action.data.id) {
-            return {
-              ...e,
-              [action.data.name]: action.data.value
-            };
-          }
-          return e;
-        })
-      };
+        date: moment().format('YYYY-MM-DD'),
+        workoutName: '',
+        workoutId: null,
+        exercises: [],
+      }
     default:
       return state;
   }
