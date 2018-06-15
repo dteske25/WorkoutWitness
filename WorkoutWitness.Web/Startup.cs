@@ -43,20 +43,20 @@ namespace WorkoutWitness.Web
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddHsts(options =>
-            {
-                options.Preload = true;
-                options.IncludeSubDomains = true;
-                options.MaxAge = TimeSpan.FromDays(60);
-                options.ExcludedHosts.Add("dteske.me");
-                options.ExcludedHosts.Add("www.dteske.me");
-            });
+            // services.AddHsts(options =>
+            // {
+            //     options.Preload = true;
+            //     options.IncludeSubDomains = true;
+            //     options.MaxAge = TimeSpan.FromDays(60);
+            //     options.ExcludedHosts.Add("dteske.me");
+            //     options.ExcludedHosts.Add("www.dteske.me");
+            // });
 
-            services.AddHttpsRedirection(options =>
-            {
-                options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
-                options.HttpsPort = 5001;
-            });
+            // services.AddHttpsRedirection(options =>
+            // {
+            //     options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
+            //     options.HttpsPort = 5001;
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,17 +69,17 @@ namespace WorkoutWitness.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                // app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
+            // app.UseForwardedHeaders(new ForwardedHeadersOptions
+            // {
+            //     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            // });
 
             app.UseAuthentication();
 
