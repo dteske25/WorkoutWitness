@@ -55,7 +55,7 @@ namespace WorkoutWitness.Web
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
-                options.HttpsPort = 44378;
+                options.HttpsPort = 5001;
             });
         }
 
